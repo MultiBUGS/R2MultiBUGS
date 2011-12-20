@@ -1,0 +1,10 @@
+	model
+	{
+		for( i in 1 : N ) {
+			Y[i] ~ dnorm(mu[i],tau)
+			mu[i] <- alpha + beta * (x[i] - xbar)
+		}
+		tau ~ dgamma(0.001,0.001) sigma <- 1 / sqrt(tau)
+		alpha ~ dnorm(0.0,1.0E-6)
+		beta ~ dnorm(0.0,1.0E-6)	
+	}

@@ -1,0 +1,10 @@
+list(asia = 2, dyspnoea = 2,
+		     p.tuberculosis = structure(.Data = c(0.99,0.01,0.95,0.05), .Dim = c(2,2)),
+		     p.bronchitis = structure(.Data = c(0.70,0.30,0.40,0.60), .Dim = c(2,2)),
+		     p.smoking = c(0.50,0.50),
+		     p.lung.cancer = structure(.Data = c(0.99,0.01,0.90,0.10), .Dim = c(2,2)),
+		     p.xray = structure(.Data = c(0.95,0.05,0.02,0.98), .Dim = c(2,2)),
+		     p.dyspnoea = structure(.Data = c(0.9,0.1,
+		                   0.2,0.8,
+		                   0.3,0.7,
+		                   0.1,0.9), .Dim = c(2,2,2)))

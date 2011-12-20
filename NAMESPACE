@@ -1,0 +1,19 @@
+importFrom(coda, mcmc, mcmc.list, as.mcmc.list, read.coda)
+importFrom(boot, logit)
+
+export(bugs,
+       attach.all,
+       detach.all,
+       attach.bugs,
+       detach.bugs,
+       bugs.data,
+       read.bugs,
+       bugs.log,
+       monitor,
+       as.bugs.array,
+       write.model,
+       validateInstallOpenBUGS)
+
+S3method(print, bugs)
+S3method(plot, bugs)
+S3method(as.mcmc.list, bugs)

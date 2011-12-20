@@ -1,0 +1,1 @@
+list(theta = c(NA, 0.0), theta0 = 0.0, X = c(0.0, 0.0, 0.0))

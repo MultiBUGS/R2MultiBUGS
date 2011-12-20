@@ -1,0 +1,54 @@
+
+R version 2.14.0 (2011-10-31)
+Copyright (C) 2011 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: i386-pc-mingw32/i386 (32-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library("R2OpenBUGS")
+> validateInstallOpenBUGS()
+The version of OpenBUGS on your computer is being compared to validation
+results created using OpenBUGS version 3.2.1
+
+Results matched for example Air 
+
+Results matched for example Asia 
+
+Results matched for example Beetles 
+
+Results matched for example BiRats 
+
+Results matched for example Camel 
+
+Results matched for example Dugongs 
+
+Results matched for example Dyes 
+
+Results matched for example Equiv 
+
+Results matched for example Eyes 
+
+Results matched for example Line 
+
+Results matched for example OtreesMVN 
+
+Results matched for example Rats 
+
+Results matched for example Stacks 
+
+Results matched for example Surgical 
+
+Results matched for example Surgicalrand 
+
+> 
