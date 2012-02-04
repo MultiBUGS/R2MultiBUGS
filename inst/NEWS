@@ -1,6 +1,11 @@
 Changes to R2OpenBUGS:
 ======================
 
+Update 3.2-1.4
+- Corrected printing of pD and DIC, which were reversed
+- Updated documentation to note difference in DIC reporting between Windows and Linux, and the lack of support for the bugs.log function under Linux
+- Fixed problem with references in vignette
+
 Update 3.2-1.3
 - cleanup: removed S-PLUS support completely since that was removed at several 
   other places before

@@ -124,7 +124,8 @@ function (parameters.to.save, n.chains, n.iter, n.burnin, n.thin, DIC=TRUE)
                            pD=mean(pD), DIC=mean(DIC)))
       } else { ## Use BUGS calculation of DIC
         all <- c(all, list(isDIC=TRUE, DICbyR=FALSE,
-                           pD=LOG[nrow(LOG),3], DIC=LOG[nrow(LOG),4]))
+                           pD=LOG[nrow(LOG),4], DIC=LOG[nrow(LOG),3]))
+                           ## order reversed in OpenBUGS from WinBUGS
       }
   } else {
     all <- c(all, isDIC=FALSE)

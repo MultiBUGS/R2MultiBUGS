@@ -35,8 +35,8 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
     e.g. by the function \code{\link{bugs.inits}}.}
   \item{parameters.to.save}{character vector of the names of the
     parameters to save which should be monitored}
-  \item{model.file}{File containing the model written in \pkg{OpenBUGS} code.
-    The extension must be \file{.txt}.
+  \item{model.file}{File containing the model written in \pkg{OpenBUGS} code.  The 
+    extension must be \file{.txt}.  The default location is given by \code{working.directory}.
     The old convention allowing model.file to be named \file{.bug} has been eliminated
     because the new \pkg{OpenBUGS} feature that allows the program image
     to be saved and later restarted uses the .bug extension for the saved
@@ -75,9 +75,13 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
     when the script has finished running, otherwise \pkg{OpenBUGS} remains open
     for further investigation.  The debug option is not available for linux execution.}
   \item{DIC}{logical; if \code{TRUE} (default), compute deviance, pD,
-    and DIC. This is done in \pkg{OpenBUGS} directly using the rule \code{pD =
-    Dbar - Dhat}.  If there are less iterations than required for the
-    adaptive phase, the rule \code{pD=var(deviance) / 2} is used.}
+    and DIC.  For Windows execution, the results are extracted directly
+    from the \pkg{OpenBUGS} log, which uses the rule \code{pD =
+    Dbar - Dhat}.  For linux execution, or 
+    if there are less iterations than required for the
+    adaptive phase, the rule \code{pD=var(deviance) / 2} is 
+    is computed in R.  See \code{\link{bugs.log}} for more 
+    information on extracting results from the log file.}
   \item{digits}{number of significant digits used for \pkg{OpenBUGS} input, see
     \code{\link{formatC}}}
   \item{codaPkg}{logical; if \code{FALSE} (default) a \code{bugs} object
@@ -105,7 +109,7 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
     For other operating systems, the location is guessed by \code{Sys.which("OpenBUGS")}.
     }
   \item{working.directory}{sets working directory during execution of
-    this function; \pkg{OpenBUGS}' in- and output will be stored in this
+    this function; \pkg{OpenBUGS}' input and output will be stored in this
     directory; if \code{NULL}, a temporary working directory via
     \code{\link{tempdir}} is used.}
   \item{clearWD}{logical; indicating whether the files \file{data.txt},
@@ -156,10 +160,10 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
 
   Operation system support:
   \itemize{
-    \item{\pkg{MS Windows}}{no problem}
-    \item{\pkg{Linux, intel processors}}{GUI display and graphics not available.}
+    \item{\pkg{MS Windows}}{ no problem}
+    \item{\pkg{Linux, intel processors}}{ GUI display and graphics not available.}
     \item{\pkg{Mac OS X} and \pkg{Unix} in
-      general}{possible with Wine emulation via \code{useWINE=TRUE}}
+      general}{ possible with Wine emulation via \code{useWINE=TRUE}}
   }
 
   If \code{useWINE=TRUE} is used, all paths (such as

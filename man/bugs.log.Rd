@@ -17,6 +17,9 @@ bugs.log(file)
   \item{DIC}{A matrix containing the DIC statistics as returned from
     \pkg{OpenBUGS}.}
 }
+\details{ The function is only supported under Windows execution because the \code{OpenBUGS} log file under Linux execution has a different format.  The function
+returns \code{NA} for both elements of the list under Linux.
+}
 \seealso{The main function that generates the log file is \code{\link{bugs}}.}
 \author{Jouni Kerman}
 \keyword{IO}

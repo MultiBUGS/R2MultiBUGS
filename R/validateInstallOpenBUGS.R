@@ -54,7 +54,7 @@ for (i in seq(along=test.models)) {
     exfiles <- dir(system.file("validateInstallOpenBUGS", package="R2OpenBUGS"), pattern=test.pattern[i], full.names=TRUE)
     ok <- file.copy(exfiles, tempdir())
     fit <- round(bugs(data=test.datafile[i], inits=test.inits[i],
-              para=test.params[[test.models[i]]],model.file=test.modelfile[i], 
+              parameters.to.save=test.params[[test.models[i]]],model.file=test.modelfile[i], 
               n.burnin=5000, n.iter=20000, n.thin=1, n.chains=1, DIC=FALSE, 
               working.directory=tempdir(),
               OpenBUGS.pgm=OpenBUGS.pgm)$summary, 5)
