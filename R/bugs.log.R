@@ -18,7 +18,9 @@ bugs.log <- function (file)
     if(n.cols < 1) return(NA)
     mxlen <- sapply(mx, length)
     end <- which(mxlen!=n.cols)[1] - 1
-    mx <- mx[1:end]
+    if(!is.na(end)){  ### if output block does not end mx
+        mx <- mx[1:end]
+    }
     cm <- matrix(unlist(mx), ncol=n.cols, byrow=TRUE) # character format
     if(empty.left.col) cm <- cm[,-1]    # empty column
     col.names <- cm[1, -1]              # first column is just "node"

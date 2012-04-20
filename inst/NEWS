@@ -1,6 +1,11 @@
 Changes to R2OpenBUGS:
 ======================
 
+Update 3.2-2.1
+- Updated reading of CODA file formats for version 3.2.2 of OpenBUGS, which
+  now consistently uses tab delimiters.  Problems with reading the log
+  file were corrected as part of the new version of OpenBUGS.
+
 Update 3.2-1.4
 - Corrected printing of pD and DIC, which were reversed
 - Updated documentation to note difference in DIC reporting between Windows and Linux, and the lack of support for the bugs.log function under Linux

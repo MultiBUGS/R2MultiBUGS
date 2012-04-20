@@ -1,7 +1,7 @@
 Package: R2OpenBUGS
 Title: Running OpenBUGS from R
-Date: 2012-2-04
-Version: 3.2-1.4
+Date: 2012-4-20
+Version: 3.2-2.1
 Author: originally written as R2WinBUGS by Andrew Gelman
         <gelman@stat.columbia.edu>; changes and packaged by Sibylle
         Sturtz <sturtz@statistik.tu-dortmund.de> and Uwe Ligges
@@ -14,9 +14,9 @@ Description: Using this package, it is possible to call a BUGS model,
         save the simulations in arrays for easy access in R.
 Depends: R (>= 2.11.0)
 Imports: coda (>= 0.11-0), boot
-SystemRequirements: OpenBUGS (>= 3.2.1)
+SystemRequirements: OpenBUGS (>= 3.2.2)
 Maintainer: Neal Thomas <snthomas99@yahoo.com>
 License: GPL-2
-Packaged: 2012-02-15 14:28:05 UTC; ThomasN
+Packaged: 2012-06-26 18:39:30 UTC; ThomasN
 Repository: CRAN
-Date/Publication: 2012-02-15 20:34:10
+Date/Publication: 2012-07-09 17:12:05

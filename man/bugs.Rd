@@ -75,11 +75,11 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
     when the script has finished running, otherwise \pkg{OpenBUGS} remains open
     for further investigation.  The debug option is not available for linux execution.}
   \item{DIC}{logical; if \code{TRUE} (default), compute deviance, pD,
-    and DIC.  For Windows execution, the results are extracted directly
+    and DIC.  The results are extracted directly
     from the \pkg{OpenBUGS} log, which uses the rule \code{pD =
-    Dbar - Dhat}.  For linux execution, or 
+    Dbar - Dhat}.  If extraction fails or 
     if there are less iterations than required for the
-    adaptive phase, the rule \code{pD=var(deviance) / 2} is 
+    adaptive phase, the rule \code{pD=var(deviance) / 2} 
     is computed in R.  See \code{\link{bugs.log}} for more 
     information on extracting results from the log file.}
   \item{digits}{number of significant digits used for \pkg{OpenBUGS} input, see
