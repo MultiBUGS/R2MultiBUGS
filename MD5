@@ -1,5 +1,5 @@
 d164135a0a8ff98f8e378701f2a13059 *CreatevalidateOpenBUGS.R
-a4313ad5f8eadff90b19f6ff8bd8a23c *DESCRIPTION
+cf93b3e23300c0786199881359777faa *DESCRIPTION
 c491d5617b8550b8c5d480bf25dd3010 *NAMESPACE
 c6e2fac4bd4c53eee794461c93091017 *R/as.bugs.array.R
 3ed2ae0ca3c719074edd579aac380f2e *R/as.mcmc.list.bugs.R
@@ -29,6 +29,7 @@ efd33b6a49c441f37e25ba137cf1dc31 *R/write.datafile.R
 aae2a47d3a16dfaa2d6289c288570a2f *data/schools.txt.gz
 331273eda881d763bc5db965f5ad90d7 *inst/CITATION
 c684eb0e4bd584ac48ff96067b165523 *inst/NEWS
+2d1962cb5b365d4fb4d0708c61705091 *inst/doc/R2OpenBUGS.R
 be99223aacb236b1a5575ee6f30d127a *inst/doc/R2OpenBUGS.Rnw
 b518385518cc7f068875e42f7e7bb476 *inst/doc/R2OpenBUGS.pdf
 d0fcdd40339f64611177e97cdfb04ca4 *inst/model/schools.txt
@@ -82,7 +83,7 @@ fc8644eaa77689063f4f1767d4b63227 *inst/validateInstallOpenBUGS/Stacksinits.txt
 c6483093c128c857b027e39b650cbe0d *inst/validateInstallOpenBUGS/validOpenBUGSResults.R
 8894f7ffc7abe6a500ecccfc2512c9a1 *man/R2WinBUGS-package.Rd
 c493ea69105800b001ac30152e2c7ae8 *man/as.bugs.array.Rd
-7b8e4e09d92e8b942929ac76934e9cfa *man/attach.all.Rd
+48556eccca0cdd50e4961e604b3c024a *man/attach.all.Rd
 d4d683022967079b5b7ad9b7a9084266 *man/bugs.Rd
 10370033f69c23b13d2e76b4c1084829 *man/bugs.data.Rd
 50f6b3e2a23eeb3025088e9cdb714372 *man/bugs.inits.Rd
