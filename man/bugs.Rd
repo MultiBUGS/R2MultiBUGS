@@ -232,8 +232,8 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
      \emph{Journal of Statistical Software} 12(3), 1-16.
 }
 
-\author{Andrew Gelman, \email{gelman@stat.columbia.edu},
-  \url{http:/www.stat.columbia.edu/~gelman/bugsR/}; modifications and
+\author{Andrew Gelman, \email{gelman@stat.columbia.edu};
+  modifications and
   packaged by Sibylle Sturtz, \email{sturtz@statistik.tu-dortmund.de},
   Uwe Ligges, and Neal Thomas}
 

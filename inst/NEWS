@@ -1,6 +1,9 @@
 Changes to R2OpenBUGS:
 ======================
 
+Update 3.2-3
+- bugs.inits function is now exported.
+
 Update 3.2-2.1
 - Updated reading of CODA file formats for version 3.2.2 of OpenBUGS, which
   now consistently uses tab delimiters.  Problems with reading the log

@@ -1,6 +1,5 @@
-d164135a0a8ff98f8e378701f2a13059 *CreatevalidateOpenBUGS.R
-cf93b3e23300c0786199881359777faa *DESCRIPTION
-c491d5617b8550b8c5d480bf25dd3010 *NAMESPACE
+de1306c8e127e05046c51b40ce1ec4e1 *DESCRIPTION
+6a13736af39b290119adaa6ca89b2d02 *NAMESPACE
 c6e2fac4bd4c53eee794461c93091017 *R/as.bugs.array.R
 3ed2ae0ca3c719074edd579aac380f2e *R/as.mcmc.list.bugs.R
 9f279072c4c6c79b2294442b29371882 *R/attach.all.R
@@ -16,7 +15,7 @@ df4ac112970b7e24ab28ce96834bd7ab *R/bugs.script.R
 0712634e4f64e8b35b1644d151735302 *R/bugs.update.settings.R
 3466f37a8d2ede089797e146dc948a46 *R/conv.par.R
 f87194ca8e1cbff076629146c95b7972 *R/decode.parameter.name.R
-ecf3b047a2ab74a67a0ced0d0c115baf *R/findOpenBUGS.R
+4ed9cf5f7ebd9d52e003dd006d8ff639 *R/findOpenBUGS.R
 0b665be957cd7a98b423acb884695a9d *R/formatdata.R
 fa544814f5f30672638bd5c028b8ba3c *R/monitor.R
 8d955a3472826ac49c3158b34c032726 *R/plot.bugs.R
@@ -26,10 +25,10 @@ ed28ea0911e1e52e9640c167cf695c03 *R/read.bugs.R
 3e78027ad44512a925cf4dac393bcd68 *R/wineutils.R
 efd33b6a49c441f37e25ba137cf1dc31 *R/write.datafile.R
 199b4f5183a410222bf66fd147269a09 *R/write.model.R
+b0a200cd2441867aaf3cc014b3189f56 *build/vignette.rds
 aae2a47d3a16dfaa2d6289c288570a2f *data/schools.txt.gz
 331273eda881d763bc5db965f5ad90d7 *inst/CITATION
-c684eb0e4bd584ac48ff96067b165523 *inst/NEWS
-2d1962cb5b365d4fb4d0708c61705091 *inst/doc/R2OpenBUGS.R
+5f5e7884b2ea45702f3f5070951d32b6 *inst/NEWS
 be99223aacb236b1a5575ee6f30d127a *inst/doc/R2OpenBUGS.Rnw
 b518385518cc7f068875e42f7e7bb476 *inst/doc/R2OpenBUGS.pdf
 d0fcdd40339f64611177e97cdfb04ca4 *inst/model/schools.txt
@@ -84,7 +83,7 @@ c6483093c128c857b027e39b650cbe0d *inst/validateInstallOpenBUGS/validOpenBUGSResu
 8894f7ffc7abe6a500ecccfc2512c9a1 *man/R2WinBUGS-package.Rd
 c493ea69105800b001ac30152e2c7ae8 *man/as.bugs.array.Rd
 48556eccca0cdd50e4961e604b3c024a *man/attach.all.Rd
-d4d683022967079b5b7ad9b7a9084266 *man/bugs.Rd
+5c67aaf8af62316c75be1a41af0d9433 *man/bugs.Rd
 10370033f69c23b13d2e76b4c1084829 *man/bugs.data.Rd
 50f6b3e2a23eeb3025088e9cdb714372 *man/bugs.inits.Rd
 30c2d36bbbca786fe43dc219968e89c1 *man/bugs.log.Rd
@@ -102,8 +101,6 @@ cf2b71f734e9b2349bf57222488c8aa8 *man/schools.Rd
 132518071bda405cf9b6d0a556952407 *man/validateInstallOpenBUGS.Rd
 104b6f738ab0eb2cd4c03557c29095cf *man/write.datafile.Rd
 5a18e5bd0622ed684aeb2415485ad2c7 *man/write.model.Rd
-592ed880760a39752f06174de5a35f0b *tests/R2OpenBUGS.R
-d8a26b3ae35cd0a740884d4f637d2cd8 *tests/R2OpenBUGS.Rout.save
 be99223aacb236b1a5575ee6f30d127a *vignettes/R2OpenBUGS.Rnw
 3e028eeff9a3f50fed9739e8fdc093f0 *vignettes/RdRW.sty
 9a22dbf5a0c7104c43e0cbf622e46a64 *vignettes/Z.cls

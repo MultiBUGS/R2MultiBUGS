@@ -10,9 +10,9 @@ findOpenBUGS <- function(){
     if(.Platform$OS.type != "windows")
         return(Sys.which('OpenBUGS'))
         
-    deps <- utils:::packageDescription("R2OpenBUGS", fields="SystemRequirements")
+    deps <- utils::packageDescription("R2OpenBUGS", fields="SystemRequirements")
     version.req <- gsub(".*OpenBUGS ?\\(>= ?(.+)\\).*", "\\1", deps)
-    ob.reg <- try(utils:::readRegistry("Software\\OpenBUGS", "HLM", view = "32-bit"), silent = TRUE)
+    ob.reg <- try(utils::readRegistry("Software\\OpenBUGS", "HLM", view = "32-bit"), silent = TRUE)
     if (inherits(ob.reg, "try-error"))
         return(NA)
         
@@ -29,5 +29,5 @@ findOpenBUGS <- function(){
     if (compareVersion(max(version.inst), version.req) < 0)
         warning("Found OpenBUGS version ", version.inst, ".\n Requires ", version.req, " or greater.")
 
-    utils:::readRegistry(paste("Software", "OpenBUGS", rnames, sep="\\"), "HLM", view = "32-bit")[["InstallPath"]]
+    utils::readRegistry(paste("Software", "OpenBUGS", rnames, sep="\\"), "HLM", view = "32-bit")[["InstallPath"]]
 }
