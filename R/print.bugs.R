@@ -24,9 +24,9 @@ print.bugs <- function(x, digits.summary = 1, ...)
                            "(using the rule, pD = Dbar-Dhat)")       ## BUGS
       cat(paste("\nDIC info ", msgDICRule, "\n", sep=""))
       if(length(x$DIC) == 1) {
-        cat("pD =", fround(x$pD, 1), "and DIC =", fround(x$DIC, 1))
+        cat("pD =", fround(x$pD, digits.summary), "and DIC =", fround(x$DIC, digits.summary))
       } else if(length(x$DIC)>1) {
-        print(round(x$DIC, 1))
+        print(round(x$DIC, digits.summary))
       }
       cat("\nDIC is an estimate of expected predictive error (lower deviance is better).\n")
     }

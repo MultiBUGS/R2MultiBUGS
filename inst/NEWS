@@ -1,5 +1,8 @@
 Changes to R2OpenBUGS:
 ======================
+Update 3.2-3.2
+- Change printing of DIC to match the number of digits in the summary
+- Change attach.all for linux compatibility
 
 Update 3.2-3
 - bugs.inits function is now exported.

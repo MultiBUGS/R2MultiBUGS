@@ -1,7 +1,7 @@
 Package: R2OpenBUGS
 Title: Running OpenBUGS from R
-Date: 2015-4-06
-Version: 3.2-3.1
+Date: 2017-2-20
+Version: 3.2-3.2
 Author: originally written as R2WinBUGS by Andrew Gelman <gelman@stat.columbia.edu>;
  changes and packaged by Sibylle Sturtz <sturtz@statistik.tu-dortmund.de>
  and Uwe Ligges <ligges@statistik.tu-dortmund.de>.
@@ -15,9 +15,9 @@ Description: Using this package,
 Depends: R (>= 2.13.0)
 Imports: coda (>= 0.11-0), boot
 SystemRequirements: OpenBUGS (>= 3.2.2)
-Maintainer: Neal Thomas <snthomas99@yahoo.com>
+Maintainer: Neal Thomas <snthomas99@gmail.com>
 License: GPL-2
-Packaged: 2015-04-07 15:54:38 UTC; ThomasN
 NeedsCompilation: no
+Packaged: 2017-02-21 20:11:07 UTC; ThomasN
 Repository: CRAN
-Date/Publication: 2015-04-07 19:16:49
+Date/Publication: 2017-02-22 08:42:15

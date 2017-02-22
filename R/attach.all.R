@@ -8,7 +8,7 @@ attach.all <- function(x, overwrite = NA, name = "attach.all"){
                         "\nRemove these objects from .GlobalEnv?", sep="")
         if(interactive()){
             if(.Platform$OS.type == "windows")
-                overwrite <- "YES" == winDialog(type = "yesno", question)
+                overwrite <- "YES" == utils::winDialog(type = "yesno", question)
             else
                 overwrite <- 1 == menu(c("YES", "NO"), graphics = FALSE, title = question)
         }

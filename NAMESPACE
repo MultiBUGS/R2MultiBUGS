@@ -1,5 +1,10 @@
 importFrom(coda, mcmc, mcmc.list, as.mcmc.list, read.coda)
 importFrom(boot, logit)
+importFrom("graphics", "layout", "lines", "mtext", "par", "plot",
+             "points", "strheight", "strwidth", "text")
+importFrom("stats", "median", "qf", "quantile", "sd", "var")
+importFrom("utils", "compareVersion", "flush.console", "menu",
+             "read.table")
 
 export(bugs,
        attach.all,
