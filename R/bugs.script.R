@@ -8,6 +8,9 @@
            bugs.data.file, bugs.inits.files,
            over.relax = FALSE)
 {
+  # restart not suppored in MultiBUGS at the moment afaik
+  stopifnot(!restart)
+
   ## Write file script.txt for Bugs
   if(n.iter - n.burnin < 2)
     stop ("(n.iter-n.burnin) must be at least 2")
@@ -60,11 +63,13 @@
        "samplesClear('*')\n",
        "summaryClear('*')\n"
        ),
+    n.proc <- 2
     if(!restart)c( 
       "modelCheck('", model, "')\n",
       "modelData('", data, "')\n",
-      "modelCompile(", n.chains, ")\n"
-      ),
+      "modelDistribute(", n.chains, ")\n"
+      "modelCompile(", n.proc, ")\n"
+    ),
     if(!restart)bugs.seed.cmd,
     if(!restart && is.inits) initlist,
     if(!restart)"modelGenInits()\n",
