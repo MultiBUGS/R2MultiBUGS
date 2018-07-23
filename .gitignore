@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+.build.timestamp
+*.Rproj
+vignettes/*.R
+vignettes/*.pdf
