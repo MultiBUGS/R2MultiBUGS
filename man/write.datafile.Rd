@@ -1,8 +1,8 @@
 \name{write.datafile}
 \alias{write.datafile}
 \alias{formatdata}
-\title{Write data for OpenBUGS}
-\description{Write data in files that can be read by \pkg{OpenBUGS} - intended
+\title{Write data for MultiBUGS}
+\description{Write data in files that can be read by \pkg{MultiBUGS} - intended
   for internal use}
 \usage{
 write.datafile(datalist, towhere, fill = TRUE)
@@ -14,7 +14,7 @@ formatdata(datalist)
   \item{fill}{see \code{\link{cat}}, defaults to \code{TRUE}}
 }
 \value{
-  \item{datalist.tofile}{A structure appropriate to be read in by \pkg{OpenBUGS}.}
+  \item{datalist.tofile}{A structure appropriate to be read in by \pkg{MultiBUGS}.}
 }
 \seealso{The main function to be called by the user is \code{\link{bugs}}.}
 \keyword{internal}

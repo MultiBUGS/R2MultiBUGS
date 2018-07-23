@@ -1,7 +1,7 @@
 Package: R2MultiBUGS
 Title: Running MultiBUGS from R
 Version: 0.9
-Author: Adaption for MultiBUGS by R.J.B. Goudie.
+Author: Adapted for MultiBUGS by R.J.B. Goudie <rjbgoudie@gmail.com>.
  Originally written as R2WinBUGS by Andrew Gelman <gelman@stat.columbia.edu>;
  changes and packaged by Sibylle Sturtz <sturtz@statistik.tu-dortmund.de>
  and Uwe Ligges <ligges@statistik.tu-dortmund.de>.
@@ -14,7 +14,7 @@ Description: Using this package,
  in R.
 Depends: R (>= 2.14.0)
 Imports: coda (>= 0.11-0), boot
-SystemRequirements: MultiBUGS (>= 3.2.2)
-Maintainer: R.J.B. <rjbgoudie@gmail.com>
+SystemRequirements: MultiBUGS (>= 0.9)
+Maintainer: R.J.B. Goudie <rjbgoudie@gmail.com>
 License: GPL-2
 NeedsCompilation: no

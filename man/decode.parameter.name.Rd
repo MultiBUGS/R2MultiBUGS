@@ -1,8 +1,8 @@
 \name{decode.parameter.name}
 \alias{decode.parameter.name}
-\title{Decodes OpenBUGS parameter names}
+\title{Decodes MultiBUGS parameter names}
 
-\description{Decodes \pkg{OpenBUGS} parameter names (e.g.,
+\description{Decodes \pkg{MultiBUGS} parameter names (e.g.,
   \code{beta[3,14]} becomes \code{beta} with 2 indexes: 3 and 14) for
   use by the \code{\link{bugs.sims}} function - intended for internal
   use}

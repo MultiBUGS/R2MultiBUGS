@@ -1,8 +1,8 @@
 \name{bugs.sims}
 \alias{bugs.sims}
-\title{OpenBUGS output reader}
+\title{MultiBUGS output reader}
 
-\description{Reads simulations from \pkg{OpenBUGS} into \R,
+\description{Reads simulations from \pkg{MultiBUGS} into \R,
   formats them, monitors convergence, performs convergence checks, and
   computes medians and quantiles - intended for internal use.}
 

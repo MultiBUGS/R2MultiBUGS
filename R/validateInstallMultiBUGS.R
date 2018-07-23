@@ -1,20 +1,20 @@
-validateInstallOpenBUGS <- function(
-    OpenBUGS.pgm=NULL,
+validateInstallMultiBUGS <- function(
+    MultiBUGS.pgm=NULL,
     useWINE=FALSE, WINE=NULL,
     newWINE=TRUE, WINEPATH=NULL
     )
 {
 ## Selected examples which take a few seconds in total to run
 
-if(is.null(OpenBUGS.pgm)){
-    OpenBUGS.pgm <- findOpenBUGS()
+if(is.null(MultiBUGS.pgm)){
+    MultiBUGS.pgm <- findMultiBUGS()
     if(.Platform$OS.type == "windows" | useWINE==TRUE)
-        OpenBUGS.pgm <- file.path(OpenBUGS.pgm, "OpenBUGS.exe")
-} else if(OpenBUGS.pgm == "OpenBUGS")
-    OpenBUGS.pgm <- Sys.which("OpenBUGS")
+        MultiBUGS.pgm <- file.path(MultiBUGS.pgm, "MultiBUGS.exe")
+} else if(MultiBUGS.pgm == "MultiBUGS")
+    MultiBUGS.pgm <- Sys.which("MultiBUGS")
 
-if(!file.exists(OpenBUGS.pgm))
-    stop("Cannot find the OpenBUGS program") 
+if(!file.exists(MultiBUGS.pgm))
+    stop("Cannot find the MultiBUGS program") 
 
 test.models <- c("Air", "Asia", "Beetles", "BiRats", "Camel",
                  "Dugongs", "Dyes", "Equiv", "Eyes",
@@ -45,19 +45,19 @@ test.pattern <- paste("^", test.models, ".*\\.txt$", sep="")
 
 ### Test for posterior means within 1 percent of previously saved values
 
-res.true <- dget(file = system.file("validateInstallOpenBUGS/validOpenBUGSResults.R", package="R2OpenBUGS") )
+res.true <- dget(file = system.file("validateInstallMultiBUGS/validMultiBUGSResults.R", package="R2MultiBUGS") )
 
-message("The version of OpenBUGS on your computer is being compared to validation\n",
-     "results created using OpenBUGS version 3.2.1\n")
+message("The version of MultiBUGS on your computer is being compared to validation\n",
+     "results created using MultiBUGS version 3.2.1\n")
 
 for (i in seq(along=test.models)) {
-    exfiles <- dir(system.file("validateInstallOpenBUGS", package="R2OpenBUGS"), pattern=test.pattern[i], full.names=TRUE)
+    exfiles <- dir(system.file("validateInstallMultiBUGS", package="R2MultiBUGS"), pattern=test.pattern[i], full.names=TRUE)
     ok <- file.copy(exfiles, tempdir())
     fit <- round(bugs(data=test.datafile[i], inits=test.inits[i],
               parameters.to.save=test.params[[test.models[i]]],model.file=test.modelfile[i], 
               n.burnin=5000, n.iter=20000, n.thin=1, n.chains=1, DIC=FALSE, 
               working.directory=tempdir(),
-              OpenBUGS.pgm=OpenBUGS.pgm)$summary, 5)
+              MultiBUGS.pgm=MultiBUGS.pgm)$summary, 5)
     if(isTRUE(all.equal(fit, res.true[[i]], tol=1e-2))){
         message(paste('Results matched for example', test.models[[i]], '\n', sep=' '))
     } else{

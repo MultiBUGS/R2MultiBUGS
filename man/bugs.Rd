@@ -1,17 +1,18 @@
 \name{bugs}
 \alias{bugs}
-\title{Run OpenBUGS from R}
+\title{Run MultiBUGS from R}
 
 \description{The \code{bugs} function takes data and starting values as
-  input.  It automatically writes a \pkg{OpenBUGS} script, calls the model, and
+  input.  It automatically writes a \pkg{MultiBUGS} script, calls the model, and
   saves the simulations for easy access in \R.}
 
 \usage{
 bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
     n.chains=3, n.burnin=floor(n.iter / 2), n.thin=1, 
+    n.workers = detectCores() - 1,
     saveExec=FALSE,restart=FALSE,
     debug=FALSE, DIC=TRUE, digits=5, codaPkg=FALSE,
-    OpenBUGS.pgm=NULL,
+    MultiBUGS.pgm=NULL,
     working.directory=NULL,
     clearWD=FALSE, useWINE=FALSE, WINE=NULL,
     newWINE=TRUE, WINEPATH=NULL, bugs.seed=1, summary.only=FALSE,
@@ -21,24 +22,24 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
 
 \arguments{
   \item{data}{either a named list (names corresponding to variable names
-    in the \code{model.file}) of the data for the \pkg{OpenBUGS} model,
+    in the \code{model.file}) of the data for the \pkg{MultiBUGS} model,
     \emph{or} a vector or list of the names of the data objects used by
     the model. If \code{data} is a one element character vector (such as \code{"data.txt"}), 
     it is assumed that data have already been written to the working directory into that file, 
     e.g. by the function \code{\link{bugs.data}}.}
   \item{inits}{a list with \code{n.chains} elements; each element of the
-    list is itself a list of starting values for the \pkg{OpenBUGS} model,
+    list is itself a list of starting values for the \pkg{MultiBUGS} model,
     \emph{or} a function creating (possibly random) initial values.
     Alternatively, if \code{inits=NULL}, initial values are generated
-    by \pkg{OpenBUGS}. If \code{inits} is a character vector with \code{n.chains} elements, 
+    by \pkg{MultiBUGS}. If \code{inits} is a character vector with \code{n.chains} elements, 
     it is assumed that inits have already been written to the working directory into those files, 
     e.g. by the function \code{\link{bugs.inits}}.}
   \item{parameters.to.save}{character vector of the names of the
     parameters to save which should be monitored}
-  \item{model.file}{File containing the model written in \pkg{OpenBUGS} code.  The 
+  \item{model.file}{File containing the model written in \pkg{MultiBUGS} code.  The 
     extension must be \file{.txt}.  The default location is given by \code{working.directory}.
     The old convention allowing model.file to be named \file{.bug} has been eliminated
-    because the new \pkg{OpenBUGS} feature that allows the program image
+    because the new \pkg{MultiBUGS} feature that allows the program image
     to be saved and later restarted uses the .bug extension for the saved
     images.  
     Alternatively, \code{model.file} can be an R function that contains a BUGS model that is written to a 
@@ -50,12 +51,13 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
     discard at the beginning. Default is \code{n.iter/2}, that is,
     discarding the first half of the simulations.}
   \item{n.thin}{Thinning rate. Must be a positive integer. The default is 
-    \code{n.thin} = 1. The thinning is implemented in the OpenBUGS update phase, so
+    \code{n.thin} = 1. The thinning is implemented in the MultiBUGS update phase, so
     thinned samples are never stored, and they are not counted in \code{n.burnin} or
-    \code{n.iter}.  Setting \code{n.thin}=2, doubles the number of iterations OpenBUGS 
+    \code{n.iter}.  Setting \code{n.thin}=2, doubles the number of iterations MultiBUGS 
     performs, but does not change \code{n.iter} or \code{n.burnin}.  Thinning implemented
     in this manner is not captured in summaries created by packages such as \pkg{coda}.}
-  \item{saveExec}{If TRUE, a re-startable image of the OpenBUGS execution is
+  \item{n.workers}{Number of workers to distribute computation within MultiBUGS across. By    default one core fewer than detected by \code{\link[parallel]{detectCores}} is used.} 
+  \item{saveExec}{If TRUE, a re-startable image of the MultiBUGS execution is
   saved with \code{basename (model.file)} and extension .bug in the working
   directory, which must be specified.  The .bug files can be large, so 
   users should monitor them carefully and remove them when not needed.
@@ -71,54 +73,54 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
   should be changed from the call creating the .bug file, otherwise 
   failed or erratic results may be produced.  Note the default has \code{n.burnin>0}.
 }
-  \item{debug}{if \code{FALSE} (default), \pkg{OpenBUGS} is closed automatically
-    when the script has finished running, otherwise \pkg{OpenBUGS} remains open
+  \item{debug}{if \code{FALSE} (default), \pkg{MultiBUGS} is closed automatically
+    when the script has finished running, otherwise \pkg{MultiBUGS} remains open
     for further investigation.  The debug option is not available for linux execution.}
   \item{DIC}{logical; if \code{TRUE} (default), compute deviance, pD,
     and DIC.  The results are extracted directly
-    from the \pkg{OpenBUGS} log, which uses the rule \code{pD =
+    from the \pkg{MultiBUGS} log, which uses the rule \code{pD =
     Dbar - Dhat}.  If extraction fails or 
     if there are less iterations than required for the
     adaptive phase, the rule \code{pD=var(deviance) / 2} 
     is computed in R.  See \code{\link{bugs.log}} for more 
     information on extracting results from the log file.}
-  \item{digits}{number of significant digits used for \pkg{OpenBUGS} input, see
+  \item{digits}{number of significant digits used for \pkg{MultiBUGS} input, see
     \code{\link{formatC}}}
   \item{codaPkg}{logical; if \code{FALSE} (default) a \code{bugs} object
-    is returned, if \code{TRUE} file names of \pkg{OpenBUGS} output are
+    is returned, if \code{TRUE} file names of \pkg{MultiBUGS} output are
     returned for easy access by the \pkg{coda} package through function
     \code{\link{read.bugs}}.
     A \code{bugs} object can be converted to an \code{mcmc.list} object as 
     used by the \pkg{coda} package with the method \code{\link[coda]{as.mcmc.list}} 
-    (for which a method is provided by R2OpenBUGS).}
-  \item{OpenBUGS.pgm}{ For Windows or WINE execution, the full path 
-    to the OpenBUGS
+    (for which a method is provided by R2MultiBUGS).}
+  \item{MultiBUGS.pgm}{ For Windows or WINE execution, the full path 
+    to the MultiBUGS
     executable.  For linux execution, the full path to the 
-    OpenBUGS executable or shell script (the path to the shell
+    MultiBUGS executable or shell script (the path to the shell
     script is not
-    required if the OpenBUGS shell script is in the user's PATH variable).  
+    required if the MultiBUGS shell script is in the user's PATH variable).  
     If \code{NULL} (unset) and the environment variable 
-    \code{OpenBUGS_PATH} is set the latter will be used as the default. 
+    \code{MultiBUGS_PATH} is set the latter will be used as the default. 
     If \code{NULL} (unset), the environment variable 
-    \code{OpenBUGS_PATH} is unset and the global option 
-    \code{R2OpenBUGS.pgm} is not \code{NULL} the latter will be 
+    \code{MultiBUGS_PATH} is unset and the global option 
+    \code{R2MultiBUGS.pgm} is not \code{NULL} the latter will be 
     used as the default.
     If none of the former are set and OS is Windows, the 
-    most recent OpenBUGS version 
+    most recent MultiBUGS version 
     registered in the Windows registry  will be used as the default.  
-    For other operating systems, the location is guessed by \code{Sys.which("OpenBUGS")}.
+    For other operating systems, the location is guessed by \code{Sys.which("MultiBUGS")}.
     }
   \item{working.directory}{sets working directory during execution of
-    this function; \pkg{OpenBUGS}' input and output will be stored in this
+    this function; \pkg{MultiBUGS}' input and output will be stored in this
     directory; if \code{NULL}, a temporary working directory via
     \code{\link{tempdir}} is used.}
   \item{clearWD}{logical; indicating whether the files \file{data.txt},
     \file{inits[1:n.chains].txt}, \file{log.odc}, \file{codaIndex.txt},
-    and \file{coda[1:nchains].txt} should be removed after \pkg{OpenBUGS} has
+    and \file{coda[1:nchains].txt} should be removed after \pkg{MultiBUGS} has
     finished.  If set to \code{TRUE}, this argument is only respected if
     \code{codaPkg=FALSE}.}
   \item{useWINE}{logical; attempt to use the Wine emulator to run
-    \pkg{OpenBUGS}. Default is \code{FALSE}. If WINE is used, the arguments \code{OpenBUGS.pgm} and \code{working.directory} must be given in form of Linux paths
+    \pkg{MultiBUGS}. Default is \code{FALSE}. If WINE is used, the arguments \code{MultiBUGS.pgm} and \code{working.directory} must be given in form of Linux paths
     rather than Windows paths (if not \code{NULL}).}
   \item{WINE}{Character, path to \file{wine} binary file, it is
     tried hard (by a guess and the utilities \code{which} and \code{locate}) 
@@ -128,13 +130,13 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
   \item{WINEPATH}{Character, path to \file{winepath} binary file, it is
     tried hard (by a guess and the utilities \code{which} and \code{locate}) 
     to get the information automatically if not given.}
-  \item{bugs.seed}{Random seed for \pkg{OpenBUGS}.  Must be an integer between 1-14.  Seed 
-    specification changed between WinBUGS and OpenBUGS;  see the OpenBUGS documentation for 
+  \item{bugs.seed}{[This is not currently honoured by R2MultiBUGS.] Random seed for \pkg{MultiBUGS}.  Must be an integer between 1-14.  Seed 
+    specification changed between WinBUGS and OpenBUGS;  see the MultiBUGS documentation for 
     details.}
   \item{summary.only}{If \code{TRUE}, only a parameter summary for very quick analyses is given, 
     temporary created files are not removed in that case.}
   \item{save.history}{If \code{TRUE} (the default), trace plots are generated at the end.}
-  \item{over.relax}{If \code{TRUE}, over-relaxed form of MCMC is used if available from OpenBUGS.}
+  \item{over.relax}{If \code{TRUE}, over-relaxed form of MCMC is used if available from MultiBUGS.}
 }
 
 \details{
@@ -145,17 +147,17 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
     \item Go into \R.
     \item Prepare the inputs for the \code{bugs} function and run it (see
       Example section).
-    \item An \pkg{OpenBUGS} window will pop up and \R will freeze
-    up. The model will now run in \pkg{OpenBUGS}. It might take awhile. You
-    will see things happening in the Log window within \pkg{OpenBUGS}. When
-    \pkg{OpenBUGS} is done, its window will close and \R will work
+    \item An \pkg{MultiBUGS} window will pop up and \R will freeze
+    up. The model will now run in \pkg{MultiBUGS}. It might take awhile. You
+    will see things happening in the Log window within \pkg{MultiBUGS}. When
+    \pkg{MultiBUGS} is done, its window will close and \R will work
     again.
     \item If an error message appears, re-run with \code{debug=TRUE}.
   }
 
   BUGS version support:
   \itemize{
-    \item{\pkg{OpenBUGS} }{>=3.2.1}
+    \item{\pkg{MultiBUGS} }{>=3.2.1}
   }
 
   Operation system support:
@@ -168,17 +170,17 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
 
   If \code{useWINE=TRUE} is used, all paths (such as
   \code{working.directory} and \code{model.file}, must be given in
-  native (Unix) style, but \code{OpenBUGS.pgm} can be given in
-  Windows path style (e.g. \dQuote{c:/Program Files/OpenBUGS/}) or
+  native (Unix) style, but \code{MultiBUGS.pgm} can be given in
+  Windows path style (e.g. \dQuote{c:/Program Files/MultiBUGS/}) or
   native (Unix) style \cr
   (e.g. \dQuote{/path/to/wine/folder/dosdevices/c:/Program
-  Files/OpenBUGS/OpenBUGS321/OpenBUGS.exe}).  
+  Files/MultiBUGS/MultiBUGS321/MultiBUGS.exe}).  
 
 }
 
 \value{
   If \code{codaPkg=TRUE} the returned values are the names
-  of coda output files written by \pkg{OpenBUGS} containing
+  of coda output files written by \pkg{MultiBUGS} containing
   the Markov Chain Monte Carlo output in the CODA format.
   This is useful for direct access with \code{\link{read.bugs}}.
 
@@ -217,7 +219,7 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
   \item{indexes.short}{indexes of \code{root.short}}
   \item{last.values}{list of simulations from the most recent
     iteration; they can be used as starting points if you wish to run
-    \pkg{OpenBUGS} for further iterations}
+    \pkg{MultiBUGS} for further iterations}
   \item{pD}{an estimate of the effective number of parameters, for
     calculations see the section \dQuote{Arguments}.}
   \item{DIC}{\code{mean(deviance) + pD}}
@@ -245,7 +247,7 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
 
 \dontrun{
 # An example model file is given in:
-model.file <- system.file(package="R2OpenBUGS", "model", "schools.txt")
+model.file <- system.file(package="R2MultiBUGS", "model", "schools.txt")
 # Let's take a look:
 #file.show(model.file)
 
@@ -272,7 +274,7 @@ inits <- function(){
 
 parameters <- c("theta", "mu.theta", "sigma.theta")
 
-## You may need to specify "OpenBUGS.pgm"
+## You may need to specify "MultiBUGS.pgm"
 ## also you need write access in the working directory:
 schools.sim <- bugs(data, inits, parameters, model.file,
     n.chains=3, n.iter=5000)

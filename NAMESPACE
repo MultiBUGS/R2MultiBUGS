@@ -5,6 +5,7 @@ importFrom("graphics", "layout", "lines", "mtext", "par", "plot",
 importFrom("stats", "median", "qf", "quantile", "sd", "var")
 importFrom("utils", "compareVersion", "flush.console", "menu",
              "read.table")
+importFrom("parallel", "detectCores")
 
 export(bugs,
        attach.all,
@@ -18,7 +19,7 @@ export(bugs,
        monitor,
        as.bugs.array,
        write.model,
-       validateInstallOpenBUGS)
+       validateInstallMultiBUGS)
 
 S3method(print, bugs)
 S3method(plot, bugs)

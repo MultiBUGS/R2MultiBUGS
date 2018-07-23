@@ -1,6 +1,6 @@
 "bugs.script" <-
   function(parameters.to.save, n.chains, n.iter, n.burnin,
-           n.thin, saveExec, restart, model.file.bug,
+           n.thin, n.workers, saveExec, restart, model.file.bug,
            model.file, debug=FALSE, is.inits, 
            DIC=FALSE, useWINE=FALSE,
            newWINE=TRUE, WINEPATH=NULL, bugs.seed=NULL, summary.only=FALSE,
@@ -9,7 +9,9 @@
            over.relax = FALSE)
 {
   # restart not suppored in MultiBUGS at the moment afaik
-  stopifnot(!restart)
+  if (restart){
+    stop("restart = TRUE is not yet supported by R2MultiBUGS")
+  }
 
   ## Write file script.txt for Bugs
   if(n.iter - n.burnin < 2)
@@ -49,8 +51,9 @@
   summarylist <- paste("summarySet(", parameters.to.save, ")\n", sep="")
 
   bugs.seed.cmd <- ""
-  if (!is.null(bugs.seed)) {
-        bugs.seed.cmd <- paste("modelSetRN(", bugs.seed, ")\n", sep="")
+  if (!is.null(bugs.seed)){
+    warning("bugs.seed is not yet supported by R2MultiBUGS (seed 1 is always used)")
+    # bugs.seed.cmd <- paste("modelSetRN(", bugs.seed, ")\n", sep="")
   }
     
   thinUpdate <- paste("modelUpdate(", formatC(n.burnin, format='d'), ",", n.thin, 
@@ -63,23 +66,23 @@
        "samplesClear('*')\n",
        "summaryClear('*')\n"
        ),
-    n.proc <- 2
-    if(!restart)c( 
+    if(!restart)
+      c( 
       "modelCheck('", model, "')\n",
       "modelData('", data, "')\n",
-      "modelDistribute(", n.chains, ")\n"
-      "modelCompile(", n.proc, ")\n"
+      "modelCompile(", n.chains, ")\n"
     ),
     if(!restart)bugs.seed.cmd,
     if(!restart && is.inits) initlist,
     if(!restart)"modelGenInits()\n",
+    if(!restart)"modelDistribute(", n.workers, ")\n",
     if(!restart && over.relax) 'over.relax("yes")\n',
     if((!restart) || (n.burnin>0))c(
     thinUpdate,
     savelist,
     summarylist
     ),
-    if(((!restart) || (n.burnin>0)) && DIC) "dicSet()\n",
+    if(((!restart) || (n.burnin>0)) && DIC) "dicSetS()\n",
     "modelUpdate(", formatC(n.iter-n.burnin, format='d'), ",", n.thin, 
                   ",",formatC(n.iter-n.burnin, format='d'),")\n", 
     "samplesCoda('*', '", coda, "')\n", 
@@ -95,5 +98,5 @@
 
   sims.files <- paste("CODAchain", 1:n.chains, ".txt", sep="")
   for(i in 1:n.chains)
-    cat("OpenBUGS did not run correctly.\n", file=sims.files[i], append=FALSE)
+    cat("MultiBUGS did not run correctly.\n", file=sims.files[i], append=FALSE)
 }

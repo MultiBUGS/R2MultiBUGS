@@ -1,6 +1,6 @@
 bugs.log <- function (file)
 {
-  # Extracts the summary statistics from log.txt written by OpenBUGS.
+  # Extracts the summary statistics from log.txt written by MultiBUGS.
   # Jouni Kerman 2007-01-30
   # does essentially the same thing as bugs.log() but
   # - won't crash if DIC is not there

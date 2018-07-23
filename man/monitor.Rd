@@ -3,7 +3,7 @@
 \alias{conv.par}
 \title{Special summary statistics}
 
-\description{Special summary statistics of the OpenBUGS output.}
+\description{Special summary statistics of the MultiBUGS output.}
 
 \usage{
 monitor(a, n.chains = dim(a)[2], trans = NULL, keep.all = FALSE, Rupper.keep = FALSE)

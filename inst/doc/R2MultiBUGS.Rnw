@@ -1,14 +1,14 @@
-%\VignetteIndexEntry{R2OpenBUGS}
+%\VignetteIndexEntry{R2MultiBUGS}
 \documentclass{Z}
 \usepackage{RdRW,thumbpdf}
 \newcommand{\WinBUGS}{{\proglang{WinBUGS}}{}}
-\newcommand{\OpenBUGS}{{\proglang{OpenBUGS}}{}}
+\newcommand{\MultiBUGS}{{\proglang{MultiBUGS}}{}}
 \newcommand{\RW}{{\pkg{R2WinBUGS}}{}}
-\newcommand{\RO}{{\pkg{R2OpenBUGS}}{}}
+\newcommand{\RO}{{\pkg{R2MultiBUGS}}{}}
 \renewcommand{\R}{{\proglang{R}}{}}
 \setlength{\textheight}{23.5cm}
 
-\title{\RO{}:\protect\linebreak A Package for Running \OpenBUGS{} from \R{}}
+\title{\RO{}:\protect\linebreak A Package for Running \MultiBUGS{} from \R{}}
 \author{Sibylle Sturtz\thanks{\email{sturtz@statistik.tu-dortmund.de}}\\Fachbereich Statistik\\Universit\"at Dortmund\\Germany
     \And
         Uwe Ligges\thanks{\email{ligges@statistik.tu-dortmund.de}}\\Fachbereich Statistik\\Universit\"at Dortmund\\Germany
@@ -16,19 +16,19 @@
         Andrew Gelman\thanks{\email{gelman@stat.columbia.edu}}\\Department of Statistics\\Columbia University\\USA
 }
 \Plainauthor{Sibylle Sturtz, Uwe Ligges, Andrew Gelman}
-\Plaintitle{R2OpenBUGS: A Package for Running OpenBUGS from R}
+\Plaintitle{R2MultiBUGS: A Package for Running MultiBUGS from R}
 
 \Abstract{
-The \RO{} package provides convenient functions to call \OpenBUGS{} from \R{}. It
-automatically writes the data and scripts in a format readable by \OpenBUGS{} for processing in batch mode, which
-is possible since version 1.4. After the \OpenBUGS{} process has finished, it is possible either to read the
+The \RO{} package provides convenient functions to call \MultiBUGS{} from \R{}. It
+automatically writes the data and scripts in a format readable by \MultiBUGS{} for processing in batch mode, which
+is possible since version 1.4. After the \MultiBUGS{} process has finished, it is possible either to read the
 resulting data into \R{} by the package itself---which gives a compact graphical summary of inference and
 convergence diagnostics---or to use the facilities of the \pkg{coda} package for further analyses of the
 output. Examples are given to demonstrate the usage of this package.
 }
 
-\Keywords{\R{}, \OpenBUGS{}, interface, MCMC}
-\Plainkeywords{R, OpenBUGS, interface, MCMC}
+\Keywords{\R{}, \MultiBUGS{}, interface, MCMC}
+\Plainkeywords{R, MultiBUGS, interface, MCMC}
 
 \begin{document}
 An earlier version of this vignette has been published by the Journal of Statistical Software:\\
@@ -39,31 +39,31 @@ Sturtz S, Ligges U, Gelman A (2005):
 
 
 \section{Introduction}\label{Introduction}
-The usage of Markov chain Monte Carlo (MCMC) methods became very popular within the last decade. \OpenBUGS{}
+The usage of Markov chain Monte Carlo (MCMC) methods became very popular within the last decade. \MultiBUGS{}
 \citep[\textbf{B}ayesian inference \textbf{U}sing \textbf{G}ibbs \textbf{S}ampling, ][]
 {Spiegelhalter;Thomas;Best:2003} is a popular software for analyzing complex statistical models using MCMC
 methods. This software uses Gibbs sampling \citep{Geman;Geman:1984,Gelfand;Smith:1990,Casella;George:1992} and the
 Metropolis algorithm \citep{Metropolis;Rosenbluth;Rosenbluth;Teller;Teller:1953}
 to generate a Markov chain by sampling from full conditional
 distributions.
-The \OpenBUGS{} software is available for free
-at \url{http://www.OpenBUGS.info}.
+The \MultiBUGS{} software is available for free
+at \url{http://www.MultiBUGS.info}.
 An introduction to MCMC methods is given in \cite{Gilks;Richardson;Spiegelhalter:1996}.
 
-Using \OpenBUGS{}, the user must specify the model to run, and to load data and initial values for a specified
+Using \MultiBUGS{}, the user must specify the model to run, and to load data and initial values for a specified
 number of Markov chains. Then it is possible to run the Markov chain(s) and to save the results for the parameters
 the user is interested in. Summary statistics of these data, convergence diagnostics, kernel estimates
 etc.\ are available as well.
 Nevertheless, some users of this software might be interested in saving the output and reading it into \R{}
 \citep{RCore:2004} for further analyses.
-\OpenBUGS{} comes with the ability to run the software in batch mode using scripts.
+\MultiBUGS{} comes with the ability to run the software in batch mode using scripts.
 
-The \RO{} package makes use of this feature and provides the tools to call \OpenBUGS{}
+The \RO{} package makes use of this feature and provides the tools to call \MultiBUGS{}
 directly after data manipulation in \R{}. Furthermore, it is possible to
 work with the results after importing them back into \R{} again, for example to create posterior predictive simulations or, more generally, graphical displays of data and posterior simulations \citep{gelman:2004}.
 Embedding in R can also be useful for frequently changed data or processing a bunch of data sets,
 because it is much more convenient to use some \R{} functions (possibly within a loop)
-rather than using ``copy \& paste'' to update data in \OpenBUGS{} each time; however difficulties have been encountered in this area because both \R{} and \OpenBUGS{} can lock up RAM in the Windows operating system.
+rather than using ``copy \& paste'' to update data in \MultiBUGS{} each time; however difficulties have been encountered in this area because both \R{} and \MultiBUGS{} can lock up RAM in the Windows operating system.
 
 \R{} is a ``language for data analysis and graphics'' and an open source and
 freely available statistical software package implementing that language, see \url{http://www.R-project.org/}.
@@ -75,10 +75,10 @@ i.e., \url{http://CRAN.R-Project.org} or one of its mirrors.
 \textsc{S-Plus}.  Minor adaptions would be needed since \textsc{S-Plus}
 lacks some of \R{}'s functions and capabilities.
 If an internet connection is available, \RO{} can be installed by typing
-\verb+install.packages("R2OpenBUGS")+ at the \R{} command prompt.
-Do not forget to load the package with \verb+library("R2OpenBUGS")+.
+\verb+install.packages("R2MultiBUGS")+ at the \R{} command prompt.
+Do not forget to load the package with \verb+library("R2MultiBUGS")+.
 
-The package \pkg{coda} by \cite{Plummer;Best;Cowles;Vines:2004} is very useful for the analysis of \OpenBUGS{}'
+The package \pkg{coda} by \cite{Plummer;Best;Cowles;Vines:2004} is very useful for the analysis of \MultiBUGS{}'
 output, the reader might want to install this package as well. The CRAN package \pkg{boa} (Bayesian Output
 Analysis Program) by \cite{Smith:2004} has similar aims.
 \proglang{JAGS} (Just Another Gibbs Sampler)
@@ -91,8 +91,8 @@ the \pkg{coda} package.
 In this paper, we give two examples, involving educational testing experiments in schools (cf.~Section~\ref{School}),
 and incidence of childhood leukaemia depending on benzene emissions (cf.~Section~\ref{Leukaemia}). Details on the
 functions of \RO{} are given in Section~\ref{Programming}. These functions automatically write the data and a
-script in a format readable by \OpenBUGS{} for processing in batch mode, and call \OpenBUGS{} from \R{}. After the
-\OpenBUGS{} process has finished, it is possible either to read the resulting data into \R{} by the package itself
+script in a format readable by \MultiBUGS{} for processing in batch mode, and call \MultiBUGS{} from \R{}. After the
+\MultiBUGS{} process has finished, it is possible either to read the resulting data into \R{} by the package itself
 or to use the facilities of the \pkg{coda} package for further analyses of the output. In Section~\ref{Example2},
 we demonstrate how to apply the functions provided by \RO{} on the examples' data, and how to analyze the output
 both with package \pkg{coda} and with \RO{}'s methods to \verb+plot()+ and \verb+print()+ the output.
@@ -166,17 +166,17 @@ Their spatial distribution is shown in Figure~\ref{benzene}.
 
 For further details on the data see \cite{Best;Cockings;Bennett;Wakefield;Elliot:2001}.
 
-We model these data by Poisson-Gamma models introduced by \cite{Best;Ickstadt;Wolpert:2000} using \OpenBUGS{}.
+We model these data by Poisson-Gamma models introduced by \cite{Best;Ickstadt;Wolpert:2000} using \MultiBUGS{}.
 A linking matrix containing information which grid cell belongs to which ward
 and to which amount is required. This matrix is calculated using \R{}.
-Unfortunately, \OpenBUGS{} does not support a list format such as directly produced by \R{}.
+Unfortunately, \MultiBUGS{} does not support a list format such as directly produced by \R{}.
 Therefore, the data must be provided as a matrix with 2132 rows and 873 columns (or vice versa).
 Most of the entries of this matrix are zeroes, but using \verb+dump()+ to export it from \R{}
 yields in a file size of 14.2~MB.
-Unfortunately, opening a file of such size really slows \OpenBUGS{} down,
+Unfortunately, opening a file of such size really slows \MultiBUGS{} down,
 and it was not even possible on some of our PCs.
 Importing data written by our \RO{} package does not make any problems using the batch mode,
-probably due to memory management issues in \OpenBUGS{}.
+probably due to memory management issues in \MultiBUGS{}.
 
 
 \section{Implementation}\label{Programming}
@@ -185,13 +185,13 @@ The ``main'' function \verb+bugs()+ is intended to be called by the user.
 In principle, it is a wrapper for several other functions called therein step by step as follows:
 \begin{enumerate}
     \item \verb+bugs.data.inits()+ writes the data files \file{data.txt}, and \file{inits1.txt}, \file{inits2.txt}, ...
-        into the working directory. These files will be used by \OpenBUGS{} during batch processing.
+        into the working directory. These files will be used by \MultiBUGS{} during batch processing.
 
-        In particular, input for \OpenBUGS{} must not exceed a certain number of digits.
+        In particular, input for \MultiBUGS{} must not exceed a certain number of digits.
         Moreover, it needs an \verb+E+ instead of an \verb+e+ in scientific notation.
         Scientific notation is particularly desirable because of the ``number of digits'' limitation.
         The default (\verb+digits = 5+) is to, e.g., reformat the number \verb+123456.789+ to \verb@1.23457E+05@.
-    \item \verb+bugs.script()+ writes the file \file{script.txt} that is used by \OpenBUGS{} for batch processing.
+    \item \verb+bugs.script()+ writes the file \file{script.txt} that is used by \MultiBUGS{} for batch processing.
     \item \verb+bugs.run()+ updates the lengths of the adaptive phases in the \WinBUGS{} registry
         (using a function \verb+bugs.update.settings()+),
         calls \WinBUGS{}, and runs it in batch mode with \file{script.txt}.
@@ -201,7 +201,7 @@ In principle, it is a wrapper for several other functions called therein step by
         which provides functions for convergence diagnostics,
         calculation of Monte Carlo estimates, trace plots, and so forth.
 
-        The function \verb+bugs.sims()+ reads simulations from \OpenBUGS{} into \R{} (not necessarily called by \verb+bugs()+
+        The function \verb+bugs.sims()+ reads simulations from \MultiBUGS{} into \R{} (not necessarily called by \verb+bugs()+
         itself), formats them,
         monitors convergence, performs convergence checks, and computes medians and quantiles.
         It also prepares the output for \verb+bugs()+ itself.
@@ -213,8 +213,8 @@ for the full version type \verb+?bugs+ in \R{} after having installed and loaded
 (see Section~\ref{Introduction}).
 
 %\newpage
-As known from \OpenBUGS{}, one must specify the \verb+data+ in form of a list, with list names equal to the names
-of data in the corresponding \OpenBUGS{} model. Alternatively, it is possible to specify a vector or list of names
+As known from \MultiBUGS{}, one must specify the \verb+data+ in form of a list, with list names equal to the names
+of data in the corresponding \MultiBUGS{} model. Alternatively, it is possible to specify a vector or list of names
 (of mode \verb+character+). In that case objects of that names are looked for in the environment in which
 \verb+bugs()+ has been called (usually that is the user's Workspace, \verb+.GlobalEnv+).
 %% Revision 2005-01-10 start
@@ -226,7 +226,7 @@ This can be done either in the form of a function \verb+inits()+ that creates th
 different chains can be automatically initialized at different points (see Section \ref{School2}), or by specifying them
 directly (see Section \ref{Leukaemia2}).
 If \verb+inits()+ is not specified,
-\verb+bugs()+ just uses the starting values created by \OpenBUGS{}; but in practice \OpenBUGS{} can crash when
+\verb+bugs()+ just uses the starting values created by \MultiBUGS{}; but in practice \MultiBUGS{} can crash when
 reasonable initial values are not specified, and so we recommend constructing a simple \verb+inits()+ function to
 simulate reasonable starting points \cite[Section C.2]{Gelman:2003}. It is also necessary to specify which
 parameters should be saved for monitoring by specifying \verb+parameters.to.save+.
@@ -238,7 +238,7 @@ that are used to calculate Monte Carlo estimates.
 The specification of a thinning parameter (\verb+n.thin+) is possible as well; this is useful when the number of parameters is large, to keep the saved output to a reasonably-sized R object.  
 
 By setting the argument \verb+debug = TRUE+,
-\OpenBUGS{} remains open after the run.
+\MultiBUGS{} remains open after the run.
 This way it is possible to find errors in the code or the data structure,
 or even to work with that software as in a usual run.  This feature is not
 available with Linux execution.
@@ -249,7 +249,7 @@ If more than one Markov chain is requested and \verb+codaPkg+ is set to \verb+FA
 $\hat{R}$ \citep{Brooks;Gelman:1998} is calculated by \verb+bugs.sims()+ for each of the saved parameters.
 
 %% Revision 2005-01-10 start
-Since the communication between \OpenBUGS{} and \R{} is based on files,
+Since the communication between \MultiBUGS{} and \R{} is based on files,
 rather huge files will be saved in the working directory by the \verb+bugs()+ call,
 either files to be read in by \verb+bugs()+ itself, or by the \pkg{coda} package.
 The user might want to delete those files after the desired contents has been imported into \R{},
@@ -272,18 +272,18 @@ Section~\ref{School2}, page~\pageref{schoolssim}, for a typical output. As with 
 of the deviance plus $p_D$, the estimated effective number of parameters in the posterior distribution. We define
 $p_D$ as half the posterior variance of the deviance and estimate it as half the average of the within-chain
 variances of the deviance.\footnote{In contrast, \cite{Spiegelhalter;Best;Carlin;vdLinde:2002},
- and OpenBUGS, define $p_D$ as the
+ and MultiBUGS, define $p_D$ as the
 posterior mean of the deviance evaluated at the posterior mean of the parameter values.  We cannot use that
-definition because the deviance function is not available to our program, which calls \OpenBUGS{} from the
+definition because the deviance function is not available to our program, which calls \MultiBUGS{} from the
 ``outside''.  Both definitions of $p_D$---ours and that introduced by \cite{Spiegelhalter;Best;Carlin;vdLinde:2002}---can be
 derived from the asymptotic $\chi^2$ distribution of the deviance relative to its minimum \citep[Section 6.7]{Gelman:2003}.
 We make no claim that our measure of $p_D$ is superior to that of \cite{Spiegelhalter;Best;Carlin;vdLinde:2002};
-we choose this measure purely because it is computationally possible given what is available to us from the \OpenBUGS{} output.}
+we choose this measure purely because it is computationally possible given what is available to us from the \MultiBUGS{} output.}
 
 
 The \verb+plot()+ for objects of class \verb+bugs+
 provides information condensed in some plots conveniently arranged within the same graphics device.
-For an example, see Figure~\ref{plot} in Section~\ref{School2}.  It is intended to adapt this function to work with MCMC output in general, even if obtained from software other than OpenBUGS.
+For an example, see Figure~\ref{plot} in Section~\ref{School2}.  It is intended to adapt this function to work with MCMC output in general, even if obtained from software other than MultiBUGS.
 
 
 
@@ -312,7 +312,7 @@ We assume a normal distribution for the observed estimate for each school with
 mean \verb+theta+ and inverse-variance \verb+tau.y+.
 The inverse-variance is given as $1/\verb+sigma.y+^{2}$ and its prior distribution is uniform on (0,1000). For the mean
 \verb+theta+, we employ another normal distribution with mean \verb+mu.theta+ and inverse-variance \verb+tau.theta+. For
-their prior distributions, see the following \OpenBUGS{} code:
+their prior distributions, see the following \MultiBUGS{} code:
 
 
 \begin{Code}
@@ -402,7 +402,7 @@ The resulting plot is given in Figure~\ref{plot}.
 In this plot, the left column shows a quick
 summary of inference and convergence ($\widehat{R}$ is close to 1.0 for all parameters, indicating good mixing of
 the three chains and thus approximate convergence); and the right column shows inferences for each set of
-parameters.  As can be seen in the right column, \RO{} uses the parameter names in \OpenBUGS{} to structure the
+parameters.  As can be seen in the right column, \RO{} uses the parameter names in \MultiBUGS{} to structure the
 output into scalar, vector, and arrays of parameters, in addition to storing the parameters as a long vector.
 
 For the interpretation of these results see \citeauthor{Gelman:2003} (\citeyear{Gelman:2003}, Section 5.5).
@@ -454,7 +454,7 @@ The parameters we want to store are regression coefficients \verb+beta.0+ and \v
 \verb+p+, the area specific relative risk compared to the reference rate. This reference rate was used to
 calculate the expected number of cases in each ward.
 
-Since we want to use the \pkg{coda} package for reading the data into \OpenBUGS{}, we specify \verb+codaPkg = TRUE+
+Since we want to use the \pkg{coda} package for reading the data into \MultiBUGS{}, we specify \verb+codaPkg = TRUE+
 in the \verb+bugs()+ call:
 \begin{Code}
     > data <- list(benzbar = mean(benz), benz = benz, expect = expect,

@@ -1,20 +1,20 @@
 \name{bugs.run}
 \alias{bugs.run}
-\title{Calling OpenBUGS}
+\title{Calling MultiBUGS}
 
 \description{
-  Calls \pkg{OpenBUGS} and runs it with \file{script.txt} - intended for
+  Calls \pkg{MultiBUGS} and runs it with \file{script.txt} - intended for
   internal use}
 
 \usage{
-bugs.run(n.burnin, OpenBUGS.pgm, debug=FALSE, 
+bugs.run(n.burnin, MultiBUGS.pgm, debug=FALSE, 
          useWINE=FALSE, WINE=NULL,
          newWINE=TRUE, WINEPATH=NULL)
 }
 \arguments{
   \item{n.burnin}{length of burn in}
-  \item{OpenBUGS.pgm}{Full path to the \pkg{OpenBUGS} executable or shell script}
-  \item{debug}{When debug=T, the OpenBUGS gui is displayed during execution.  there is no effect with linux execution}
+  \item{MultiBUGS.pgm}{Full path to the \pkg{MultiBUGS} executable or shell script}
+  \item{debug}{When debug=T, the MultiBUGS gui is displayed during execution.  there is no effect with linux execution}
   \item{useWINE}{as in \code{\link{bugs}} meta function}
   \item{WINE}{as in \code{\link{bugs}} meta function}
   \item{newWINE}{as in \code{\link{bugs}} meta function}
@@ -22,7 +22,7 @@ bugs.run(n.burnin, OpenBUGS.pgm, debug=FALSE,
 }
 
 \value{Nothing, but has side effects as documented in
-  \code{\link{bugs.update.settings}} and calls \pkg{OpenBUGS}.}
+  \code{\link{bugs.update.settings}} and calls \pkg{MultiBUGS}.}
 
 \seealso{The main function to be called by the user is \code{\link{bugs}}.}
 \keyword{internal}

@@ -64,7 +64,7 @@
 
 \examples{
 # An example model file is given in:
-model.file <- system.file("model", "schools.txt", package="R2OpenBUGS")
+model.file <- system.file("model", "schools.txt", package="R2MultiBUGS")
 # Some example data (see ?schools for details):
 data(schools)
 J <- nrow(schools)

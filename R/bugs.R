@@ -1,9 +1,10 @@
 "bugs" <-
 function(data, inits, parameters.to.save, n.iter, model.file="model.txt",
-    n.chains=3, n.burnin=floor(n.iter / 2), n.thin=1, 
+    n.chains=3, n.burnin=floor(n.iter / 2), n.thin=1,
+    n.workers = detectCores() - 1,
     saveExec=FALSE,restart=FALSE,
     debug=FALSE, DIC=TRUE, digits=5, codaPkg=FALSE,
-    OpenBUGS.pgm=NULL,
+    MultiBUGS.pgm=NULL,
     working.directory=NULL,
     clearWD=FALSE, useWINE=FALSE, WINE=NULL,
     newWINE=TRUE, WINEPATH=NULL, bugs.seed=1, summary.only=FALSE,
@@ -12,20 +13,20 @@ function(data, inits, parameters.to.save, n.iter, model.file="model.txt",
 {
 
 
-if(is.null(OpenBUGS.pgm)){
-    OpenBUGS.pgm <- findOpenBUGS()
+if(is.null(MultiBUGS.pgm)){
+    MultiBUGS.pgm <- findMultiBUGS()
     if(.Platform$OS.type == "windows" || useWINE)
-        OpenBUGS.pgm <- file.path(OpenBUGS.pgm, "OpenBUGS.exe")
-} else if(OpenBUGS.pgm == "OpenBUGS")
-    OpenBUGS.pgm <- Sys.which("OpenBUGS")
+        MultiBUGS.pgm <- file.path(MultiBUGS.pgm, "MultiBUGS.exe")
+} else if(MultiBUGS.pgm == "MultiBUGS")
+    MultiBUGS.pgm <- Sys.which("MultiBUGS")
 
-if(!file.exists(OpenBUGS.pgm))
-    stop("Cannot find the OpenBUGS program") 
+if(!file.exists(MultiBUGS.pgm))
+    stop("Cannot find the MultiBUGS program") 
 
-  ## Is OpenBUGS.pgm defined in Windows (where second character is :
+  ## Is MultiBUGS.pgm defined in Windows (where second character is :
   ## i.e. C:\Program...) or Unix style path?
-  if(useWINE && (substr(OpenBUGS.pgm, 2, 2) == ":")) {
-    OpenBUGS.pgm <- win2native(OpenBUGS.pgm, newWINE=newWINE, WINEPATH=WINEPATH)
+  if(useWINE && (substr(MultiBUGS.pgm, 2, 2) == ":")) {
+    MultiBUGS.pgm <- win2native(MultiBUGS.pgm, newWINE=newWINE, WINEPATH=WINEPATH)
   }
 
   ### check options for unix/linux
@@ -35,7 +36,7 @@ if(!file.exists(OpenBUGS.pgm))
   }
 
   if(! bugs.seed %in% 1:14)
-    stop("OpenBUGS seed must be integer in 1:14")
+    stop("MultiBUGS seed must be integer in 1:14")
 
   if(!is.function(model.file) && 
      length(grep("\\.bug", tolower(model.file))))stop("model.file must be renamed with .txt rather than .bug")
@@ -138,6 +139,7 @@ if(!file.exists(OpenBUGS.pgm))
         new.model.file <- gsub("//", "/", new.model.file)
   }
   bugs.script(parameters.to.save, n.chains, n.iter, n.burnin, n.thin,
+              n.workers,
               saveExec,restart,model.file.bug,
               new.model.file, debug=debug, is.inits=!is.null(inits),
               DIC=DIC, useWINE=useWINE, newWINE=newWINE,
@@ -145,7 +147,7 @@ if(!file.exists(OpenBUGS.pgm))
               summary.only=summary.only, save.history=save.history, 
               bugs.data.file = bugs.data.file, 
               bugs.inits.files = bugs.inits.files, over.relax = over.relax)
-  bugs.run(n.burnin, OpenBUGS.pgm, debug=debug, WINE=WINE, useWINE=useWINE,
+  bugs.run(n.burnin, MultiBUGS.pgm, debug=debug, WINE=WINE, useWINE=useWINE,
            newWINE=newWINE, WINEPATH=WINEPATH)
   if(codaPkg)
     return(file.path(getwd(), paste("CODAchain", 1:n.chains, ".txt", sep="")))

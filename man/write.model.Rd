@@ -1,7 +1,7 @@
 \name{write.model}
 \alias{write.model}
-\title{Creating a OpenBUGS model file}
-\description{Convert \R function to a \pkg{OpenBUGS} model file}
+\title{Creating a MultiBUGS model file}
+\description{Convert \R function to a \pkg{MultiBUGS} model file}
 \usage{
 write.model(model, con = "model.bug", digits = 5)
 }
@@ -11,7 +11,7 @@ write.model(model, con = "model.bug", digits = 5)
     model language, for minor differences see Section Details.}
   \item{con}{passed to \code{\link{writeLines}} which actually writes
     the model file}
-  \item{digits}{number of significant digits used for \pkg{OpenBUGS}
+  \item{digits}{number of significant digits used for \pkg{MultiBUGS}
     input, see \code{\link{formatC}}}
 }
 

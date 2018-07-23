@@ -15,7 +15,7 @@ as.bugs.array(sims.array, model.file=NULL, program=NULL,
 \arguments{
   \item{sims.array}{3-way array of simulation output, with dimensions
     n.keep, n.chains, and length of combined parameter vector.}
-  \item{model.file}{file containing the model written in \pkg{OpenBUGS} code}
+  \item{model.file}{file containing the model written in \pkg{MultiBUGS} code}
   \item{program}{the program used}
   \item{DIC}{logical; whether DIC should be calculated, see also
     argument \code{DICOutput} and details}
