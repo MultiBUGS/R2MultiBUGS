@@ -6,3 +6,4 @@
 *.Rproj
 vignettes/*.R
 vignettes/*.pdf
+vignettes/*.synctex.gz
