@@ -10,7 +10,8 @@ installation.}
 validateInstallMultiBUGS(
     MultiBUGS.pgm=NULL,
     useWINE=FALSE, WINE=NULL,
-    newWINE=TRUE, WINEPATH=NULL
+    newWINE=TRUE, WINEPATH=NULL,
+    ...
     )
 }
 
@@ -27,6 +28,7 @@ rather than Windows paths (if not \code{NULL}).}
   \item{WINEPATH}{Character, path to \file{winepath} binary file, it is
     tried hard (by a guess and the utilities \code{which} and \code{locate}) 
     to get the information automatically if not given.}
+  \item{...}{Other arguments passed through to \code{bugs}}
 }
 
 \details{

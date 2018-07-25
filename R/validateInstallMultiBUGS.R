@@ -1,7 +1,8 @@
 validateInstallMultiBUGS <- function(
     MultiBUGS.pgm=NULL,
     useWINE=FALSE, WINE=NULL,
-    newWINE=TRUE, WINEPATH=NULL
+    newWINE=TRUE, WINEPATH=NULL,
+    ...
     )
 {
 ## Selected examples which take a few seconds in total to run
@@ -57,7 +58,7 @@ for (i in seq(along=test.models)) {
               parameters.to.save=test.params[[test.models[i]]],model.file=test.modelfile[i], 
               n.burnin=5000, n.iter=20000, n.thin=1, n.chains=1, DIC=FALSE, 
               working.directory=tempdir(),
-              MultiBUGS.pgm=MultiBUGS.pgm)$summary, 5)
+              MultiBUGS.pgm=MultiBUGS.pgm, ...)$summary, 5)
     if(isTRUE(all.equal(fit, res.true[[i]], tol=1e-2))){
         message(paste('Results matched for example', test.models[[i]], '\n', sep=' '))
     } else{
