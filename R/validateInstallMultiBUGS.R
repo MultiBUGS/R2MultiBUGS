@@ -34,7 +34,7 @@ test.params <- list(Air = c("X", "theta"),
                     Line = c("alpha", "beta", "sigma"),
                     OtreesMVN = c("mu","sigma", "sigmaC"),
                     Rats = c("alpha0", "beta.c", "sigma"),
-                    Stacks = c("b", "b0", "outlier[21]","outlier[3]", "outlier[4]", "sigma"),
+                    Stacks = c("b", "b0", "outlier", "sigma"),
                     Surgical = "p",
                     Surgicalrand = c("p","pop.mean", "sigma")
                     )
