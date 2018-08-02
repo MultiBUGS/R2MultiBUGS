@@ -33,12 +33,14 @@ if(report == "text"){
 } else if (report == "appveyor") {
   report <- function(matched, model, milliseconds){
     outcome <- ifelse(matched, "Passed", "Failed")
+    exit_status <- ifelse(matched, 0, 1)
     system(paste("appveyor AddTest",
                  "-Framework", "R2MultiBUGS",
                  "-Filename", model,
                  "-Duration", milliseconds,
                  "-Name", model,
                  "-Outcome", outcome))
+    q(status = exit_status)
   }
 }
 

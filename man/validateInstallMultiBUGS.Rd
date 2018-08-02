@@ -24,7 +24,8 @@ validateInstallMultiBUGS(
   \item{test.models}{A character list of models to validate.}
   \item{report}{How to report the result of the validation. If \code{"text"} then
     the outcome is reported to the console. If \code{"appveyor"} the result is
-    reported to the \code{appveyor} command line API.}
+    reported to the \code{appveyor} command line API, and R will be quit after
+    each test model.}
   \item{MultiBUGS.pgm}{See \code{\link{bugs}}.}
   \item{useWINE}{logical; attempt to use the Wine emulator to run
     \pkg{MultiBUGS}. Default is \code{FALSE}. If WINE is used, the arguments \code{MultiBUGS.pgm} and \code{working.directory} must be given in form of Linux paths
