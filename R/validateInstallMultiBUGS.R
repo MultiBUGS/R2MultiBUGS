@@ -34,6 +34,9 @@ if(report == "text"){
 } else if (report == "appveyor") {
   report_fun <- function(matched, model, milliseconds){
     outcome <- ifelse(matched, "Passed", "Failed")
+    if (exists("n.workers")){
+      model <- paste0(model, " (", n.workers, " workers)")
+    }
     system(paste("appveyor AddTest",
                  "-Framework", "R2MultiBUGS",
                  "-Filename", model,
