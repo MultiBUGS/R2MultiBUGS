@@ -52,8 +52,7 @@
 
   bugs.seed.cmd <- ""
   if (!is.null(bugs.seed)){
-    warning("bugs.seed is not yet supported by R2MultiBUGS (seed 1 is always used)")
-    # bugs.seed.cmd <- paste("modelSetRN(", bugs.seed, ")\n", sep="")
+    bugs.seed.cmd <- paste("modelSetRN(", bugs.seed, ")\n", sep="")
   }
     
   thinUpdate <- paste("modelUpdate(", formatC(n.burnin, format='d'), ",", n.thin, 
