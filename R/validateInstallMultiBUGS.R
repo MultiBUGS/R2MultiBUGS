@@ -22,8 +22,9 @@ if(is.null(MultiBUGS.pgm)){
 if(!file.exists(MultiBUGS.pgm))
     stop("Cannot find the MultiBUGS program")
 
+any_failed <- FALSE
 if(report == "text"){
-  report <- function(matched, model, milliseconds){
+  report_fun <- function(matched, model, milliseconds){
     if (matched){
       message(paste('Results matched for example', model, '\n', sep=' '))
     } else {
@@ -31,16 +32,14 @@ if(report == "text"){
     }
   }
 } else if (report == "appveyor") {
-  report <- function(matched, model, milliseconds){
+  report_fun <- function(matched, model, milliseconds){
     outcome <- ifelse(matched, "Passed", "Failed")
-    exit_status <- ifelse(matched, 0, 1)
     system(paste("appveyor AddTest",
                  "-Framework", "R2MultiBUGS",
                  "-Filename", model,
                  "-Duration", milliseconds,
                  "-Name", model,
                  "-Outcome", outcome))
-    q(status = exit_status)
   }
 }
 
@@ -82,10 +81,17 @@ for (model in test.models) {
               n.burnin=5000, n.iter=20000, n.thin=1, n.chains=1, DIC=FALSE,
               working.directory=tempdir(),
               MultiBUGS.pgm=MultiBUGS.pgm, ...)$summary, 5)
-    milliseconds <- (proc.time() - start)["elapsed"] * 1000
+    milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
     matched <- isTRUE(all.equal(fit, res.true[[model]], tol=1e-2))
-    report(matched, model, milliseconds)
+    if (!matched){
+      any_failed <- TRUE
+    }
+    report_fun(matched, model, milliseconds)
     flush.console()
+}
+if (report == "appveyor"){
+    exit_status <- ifelse(any_failed, 1, 0)
+    q(status = exit_status)
 }
     invisible()
 }
