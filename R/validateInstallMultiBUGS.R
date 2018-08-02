@@ -1,4 +1,8 @@
 validateInstallMultiBUGS <- function(
+    test.models = c("Air", "Asia", "Beetles", "BiRats", "Camel",
+                    "Dugongs", "Dyes", "Equiv", "Eyes",
+                    "Line", "OtreesMVN", "Rats", "Stacks",
+                    "Surgical", "Surgicalrand"),
     MultiBUGS.pgm=NULL,
     useWINE=FALSE, WINE=NULL,
     newWINE=TRUE, WINEPATH=NULL,
@@ -17,11 +21,6 @@ if(is.null(MultiBUGS.pgm)){
 if(!file.exists(MultiBUGS.pgm))
     stop("Cannot find the MultiBUGS program") 
 
-test.models <- c("Air", "Asia", "Beetles", "BiRats", "Camel",
-                 "Dugongs", "Dyes", "Equiv", "Eyes",
-                 "Line", "OtreesMVN", "Rats", "Stacks",
-                 "Surgical", "Surgicalrand")
-
 test.params <- list(Air = c("X", "theta"),
                     Asia = c("bronchitis", "either", "lung.cancer"),
                     Beetles = c("alpha", "beta", "rhat"),
@@ -39,11 +38,6 @@ test.params <- list(Air = c("X", "theta"),
                     Surgicalrand = c("p","pop.mean", "sigma")
                     )
 
-test.modelfile <- paste(test.models,"model.txt",sep="")
-test.datafile <- paste(test.models,"data.txt",sep="")
-test.inits <- paste(test.models,"inits.txt",sep="")
-test.pattern <- paste("^", test.models, ".*\\.txt$", sep="")
-
 ### Test for posterior means within 1 percent of previously saved values
 
 res.true <- dget(file = system.file("validateInstallMultiBUGS/validMultiBUGSResults.R", package="R2MultiBUGS") )
@@ -51,21 +45,26 @@ res.true <- dget(file = system.file("validateInstallMultiBUGS/validMultiBUGSResu
 message("The version of MultiBUGS on your computer is being compared to validation\n",
      "results created using MultiBUGS version 3.2.1\n")
 
-for (i in seq(along=test.models)) {
-    exfiles <- dir(system.file("validateInstallMultiBUGS", package="R2MultiBUGS"), pattern=test.pattern[i], full.names=TRUE)
+for (model in test.models) {
+    test.modelfile <- paste0(model, "model.txt")
+    test.datafile <- paste0(model, "data.txt")
+    test.inits <- paste0(model, "inits.txt")
+    test.pattern <- paste0("^", model, ".*\\.txt$")
+
+    exfiles <- dir(system.file("validateInstallMultiBUGS", package="R2MultiBUGS"), pattern=test.pattern, full.names=TRUE)
     ok <- file.copy(exfiles, tempdir())
-    fit <- round(bugs(data=test.datafile[i], inits=test.inits[i],
-              parameters.to.save=test.params[[test.models[i]]],model.file=test.modelfile[i], 
-              n.burnin=5000, n.iter=20000, n.thin=1, n.chains=1, DIC=FALSE, 
+    fit <- round(bugs(data=test.datafile, inits=test.inits,
+              parameters.to.save=test.params[[model]],model.file=test.modelfile,
+              n.burnin=5000, n.iter=20000, n.thin=1, n.chains=1, DIC=FALSE,
               working.directory=tempdir(),
               MultiBUGS.pgm=MultiBUGS.pgm, ...)$summary, 5)
-    if(isTRUE(all.equal(fit, res.true[[i]], tol=1e-2))){
-        message(paste('Results matched for example', test.models[[i]], '\n', sep=' '))
+    if(isTRUE(all.equal(fit, res.true[[model]], tol=1e-2))){
+        message(paste('Results matched for example', model, '\n', sep=' '))
     } else{
-        message(paste('Results did not match for example',test.models[[i]], '\n', sep=' '))
+        message(paste('Results did not match for example', model, '\n', sep=' '))
     }
     flush.console()
 }
     invisible()
 }
-                    
+

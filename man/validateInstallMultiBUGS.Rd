@@ -8,6 +8,10 @@ installation.}
 
 \usage{
 validateInstallMultiBUGS(
+    test.models=c("Air", "Asia", "Beetles", "BiRats", "Camel",
+                  "Dugongs", "Dyes", "Equiv", "Eyes",
+                  "Line", "OtreesMVN", "Rats", "Stacks",
+                  "Surgical", "Surgicalrand"),
     MultiBUGS.pgm=NULL,
     useWINE=FALSE, WINE=NULL,
     newWINE=TRUE, WINEPATH=NULL,
@@ -16,6 +20,7 @@ validateInstallMultiBUGS(
 }
 
 \arguments{
+  \item{test.models}{A character list of models to validate.}
   \item{MultiBUGS.pgm}{See \code{\link{bugs}}.}
   \item{useWINE}{logical; attempt to use the Wine emulator to run
     \pkg{MultiBUGS}. Default is \code{FALSE}. If WINE is used, the arguments \code{MultiBUGS.pgm} and \code{working.directory} must be given in form of Linux paths
