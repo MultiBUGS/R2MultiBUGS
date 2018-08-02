@@ -3,6 +3,7 @@ validateInstallMultiBUGS <- function(
                     "Dugongs", "Dyes", "Equiv", "Eyes",
                     "Line", "OtreesMVN", "Rats", "Stacks",
                     "Surgical", "Surgicalrand"),
+    report="text",
     MultiBUGS.pgm=NULL,
     useWINE=FALSE, WINE=NULL,
     newWINE=TRUE, WINEPATH=NULL,
@@ -19,7 +20,22 @@ if(is.null(MultiBUGS.pgm)){
     MultiBUGS.pgm <- Sys.which("MultiBUGS")
 
 if(!file.exists(MultiBUGS.pgm))
-    stop("Cannot find the MultiBUGS program") 
+    stop("Cannot find the MultiBUGS program")
+
+if(report == "text"){
+  report <- function(matched, model){
+    if (matched){
+      message(paste('Results matched for example', model, '\n', sep=' '))
+    } else {
+      message(paste('Results did not match for example', model, '\n', sep=' '))
+    }
+  }
+} else if (report == "appveyor") {
+  report <- function(matched, model){
+    outcome <- ifelse(matched, "Passed", "Failed")
+    system(paste("appveyor AddTest -Framework R2MultiBUGS -Filename", model, "-Duration 0 -Name", model, "-Outcome", outcome))
+  }
+}
 
 test.params <- list(Air = c("X", "theta"),
                     Asia = c("bronchitis", "either", "lung.cancer"),
@@ -58,11 +74,8 @@ for (model in test.models) {
               n.burnin=5000, n.iter=20000, n.thin=1, n.chains=1, DIC=FALSE,
               working.directory=tempdir(),
               MultiBUGS.pgm=MultiBUGS.pgm, ...)$summary, 5)
-    if(isTRUE(all.equal(fit, res.true[[model]], tol=1e-2))){
-        message(paste('Results matched for example', model, '\n', sep=' '))
-    } else{
-        message(paste('Results did not match for example', model, '\n', sep=' '))
-    }
+    matched <- isTRUE(all.equal(fit, res.true[[model]], tol=1e-2))
+    report(matched, model)
     flush.console()
 }
     invisible()

@@ -12,6 +12,7 @@ validateInstallMultiBUGS(
                   "Dugongs", "Dyes", "Equiv", "Eyes",
                   "Line", "OtreesMVN", "Rats", "Stacks",
                   "Surgical", "Surgicalrand"),
+    report="text",
     MultiBUGS.pgm=NULL,
     useWINE=FALSE, WINE=NULL,
     newWINE=TRUE, WINEPATH=NULL,
@@ -21,6 +22,9 @@ validateInstallMultiBUGS(
 
 \arguments{
   \item{test.models}{A character list of models to validate.}
+  \item{report}{How to report the result of the validation. If \code{"text"} then
+    the outcome is reported to the console. If \code{"appveyor"} the result is
+    reported to the \code{appveyor} command line API.}
   \item{MultiBUGS.pgm}{See \code{\link{bugs}}.}
   \item{useWINE}{logical; attempt to use the Wine emulator to run
     \pkg{MultiBUGS}. Default is \code{FALSE}. If WINE is used, the arguments \code{MultiBUGS.pgm} and \code{working.directory} must be given in form of Linux paths
