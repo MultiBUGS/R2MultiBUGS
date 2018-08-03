@@ -53,7 +53,7 @@ if(report == "text"){
     model <- paste0(model, " (", n.workers, " workers)")
     log <- readLines(file.path(working.directory, "log.txt"))
     fit <- c("\nResults obtained:\n", capture.output(print(fit)))
-    true <- c("\nReference results:\n", capture.output(print(fit)))
+    true <- c("\nReference results:\n", capture.output(print(true)))
     stdout <- paste(paste(log, collapse = "\n"),
                     paste(fit, collapse = "\n"),
                     paste(true, collapse = "\n"),
