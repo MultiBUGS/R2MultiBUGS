@@ -54,7 +54,10 @@ if(report == "text"){
     log <- readLines(file.path(working.directory, "log.txt"))
     fit <- c("\nResults obtained:\n", capture.output(print(fit)))
     true <- c("\nReference results:\n", capture.output(print(fit)))
-    stdout <- paste(log, fit, true, collapse = "\n")
+    stdout <- paste(paste(log, collapse = "\n"),
+                    paste(fit, collapse = "\n"),
+                    paste(true, collapse = "\n"),
+                    sep = "\n\n==============\n\n")
     system(paste("appveyor AddTest",
                  "-Framework", "R2MultiBUGS",
                  "-Filename \"", model, "\"",
