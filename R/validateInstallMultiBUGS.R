@@ -25,7 +25,7 @@ if(!file.exists(MultiBUGS.pgm))
 
 any_failed <- FALSE
 if(report == "text"){
-  report_fun <- function(matched, model, milliseconds){
+  report_fun <- function(matched, model, milliseconds, working.directory){
     if (matched){
       message(paste('Results matched for example', model, '\n', sep=' '))
     } else {
@@ -33,15 +33,18 @@ if(report == "text"){
     }
   }
 } else if (report == "appveyor") {
-  report_fun <- function(matched, model, milliseconds){
+  report_fun <- function(matched, model, milliseconds, working.directory){
     outcome <- ifelse(matched, "Passed", "Failed")
     model <- paste0(model, " (", n.workers, " workers)")
+    log <- paste(readLines(file.path(working.directory, "log.txt")),
+                 collapse = "\n")
     system(paste("appveyor AddTest",
                  "-Framework", "R2MultiBUGS",
                  "-Filename", model,
                  "-Duration", milliseconds,
                  "-Name", model,
-                 "-Outcome", outcome))
+                 "-Outcome", outcome,
+                 "-StdOut", log))
   }
 }
 
@@ -74,6 +77,7 @@ for (model in test.models) {
     test.datafile <- paste0(model, "data.txt")
     test.inits <- paste0(model, "inits.txt")
     test.pattern <- paste0("^", model, ".*\\.txt$")
+    working.directory <- tempdir()
 
     exfiles <- dir(system.file("validateInstallMultiBUGS", package="R2MultiBUGS"), pattern=test.pattern, full.names=TRUE)
     ok <- file.copy(exfiles, tempdir())
@@ -82,14 +86,14 @@ for (model in test.models) {
               parameters.to.save=test.params[[model]],model.file=test.modelfile,
               n.burnin=5000, n.iter=20000, n.thin=1,
               n.workers=n.workers, n.chains=1, DIC=FALSE,
-              working.directory=tempdir(),
+              working.directory=working.directory,
               MultiBUGS.pgm=MultiBUGS.pgm, ...)$summary, 5)
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
     matched <- isTRUE(all.equal(fit, res.true[[model]], tol=1e-2))
     if (!matched){
       any_failed <- TRUE
     }
-    report_fun(matched, model, milliseconds)
+    report_fun(matched, model, milliseconds, working.directory)
     flush.console()
 }
 if (report == "appveyor"){
