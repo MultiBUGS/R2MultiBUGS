@@ -25,7 +25,12 @@ if(!file.exists(MultiBUGS.pgm))
 
 any_failed <- FALSE
 if(report == "text"){
-  report_fun <- function(matched, model, milliseconds, working.directory){
+  report_fun <- function(fit,
+                         true,
+                         matched,
+                         model,
+                         milliseconds,
+                         working.directory){
     if (matched){
       message(paste('Results matched for example', model, '\n', sep=' '))
     } else {
@@ -33,11 +38,18 @@ if(report == "text"){
     }
   }
 } else if (report == "appveyor") {
-  report_fun <- function(matched, model, milliseconds, working.directory){
+  report_fun <- function(fit,
+                         true,
+                         matched,
+                         model,
+                         milliseconds,
+                         working.directory){
     outcome <- ifelse(matched, "Passed", "Failed")
     model <- paste0(model, " (", n.workers, " workers)")
-    log <- paste(readLines(file.path(working.directory, "log.txt")),
-                 collapse = "\n")
+    log <- readLines(file.path(working.directory, "log.txt"))
+    fit <- c("\nResults obtained:\n", capture.output(print(fit)))
+    true <- c("\nReference results:\n", capture.output(print(fit)))
+    stdout <- paste(log, fit, true, collapse = "\n")
     system(paste("appveyor AddTest",
                  "-Framework", "R2MultiBUGS",
                  "-Filename \"", model, "\"",
@@ -93,7 +105,12 @@ for (model in test.models) {
     if (!matched){
       any_failed <- TRUE
     }
-    report_fun(matched, model, milliseconds, working.directory)
+    report_fun(fit = fit,
+               true = res.true[[model]],
+               matched = matched,
+               model = model,
+               milliseconds = milliseconds,
+               working.directory = working.directory)
     flush.console()
 }
 if (report == "appveyor"){
