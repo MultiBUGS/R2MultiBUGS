@@ -52,8 +52,12 @@ if(report == "text"){
     outcome <- ifelse(matched, "Passed", "Failed")
     model <- paste0(model, " (", n.workers, " workers)")
     log <- readLines(file.path(working.directory, "log.txt"))
-    fit <- c("\nResults obtained:\n", capture.output(print(fit)))
-    true <- c("\nReference results:\n", capture.output(print(true)))
+    fit <- c("\nResults obtained:\n",
+             capture.output(print(fit)), "\n",
+             capture.output(dput(fit)))
+    true <- c("\nReference results:\n",
+              capture.output(print(true)), "\n",
+              capture.output(dput(true)))
     stdout <- paste(paste(log, collapse = "\n"),
                     paste(fit, collapse = "\n"),
                     paste(true, collapse = "\n"),
