@@ -64,11 +64,11 @@ if(report == "text"){
                     sep = "\n\n==============\n\n")
     system(paste("appveyor AddTest",
                  "-Framework", "R2MultiBUGS",
-                 "-Filename \"", model, "\"",
+                 "-Filename", shQuote(model),
                  "-Duration", milliseconds,
-                 "-Name \"", model, "\"",
+                 "-Name", shQuote(model),
                  "-Outcome", outcome,
-                 "-StdOut \"", stdout, "\""))
+                 "-StdOut", shQuote(stdout)))
   }
 }
 
