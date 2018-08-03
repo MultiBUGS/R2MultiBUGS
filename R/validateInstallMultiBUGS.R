@@ -44,6 +44,11 @@ if(report == "text"){
                          model,
                          milliseconds,
                          working.directory){
+    if (matched){
+      message(paste('Results matched for example', model, '\n', sep=' '))
+    } else {
+      message(paste('Results did not match for example', model, '\n', sep=' '))
+    }
     outcome <- ifelse(matched, "Passed", "Failed")
     model <- paste0(model, " (", n.workers, " workers)")
     log <- readLines(file.path(working.directory, "log.txt"))
