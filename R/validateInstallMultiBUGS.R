@@ -61,7 +61,7 @@ if(report == "text"){
                  "-Duration", milliseconds,
                  "-Name \"", model, "\"",
                  "-Outcome", outcome,
-                 "-StdOut \"", log, "\""))
+                 "-StdOut \"", stdout, "\""))
   }
 }
 
