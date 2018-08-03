@@ -40,11 +40,11 @@ if(report == "text"){
                  collapse = "\n")
     system(paste("appveyor AddTest",
                  "-Framework", "R2MultiBUGS",
-                 "-Filename", model,
+                 "-Filename \"", model, "\"",
                  "-Duration", milliseconds,
-                 "-Name", model,
+                 "-Name \"", model, "\"",
                  "-Outcome", outcome,
-                 "-StdOut", log))
+                 "-StdOut \"", log, "\""))
   }
 }
 
