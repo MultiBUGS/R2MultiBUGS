@@ -12,6 +12,7 @@ validateInstallMultiBUGS(
                   "Dugongs", "Dyes", "Equiv", "Eyes",
                   "Line", "OtreesMVN", "Rats", "Stacks",
                   "Surgical", "Surgicalrand"),
+    n.workers=2,
     report="text",
     MultiBUGS.pgm=NULL,
     useWINE=FALSE, WINE=NULL,
@@ -22,6 +23,7 @@ validateInstallMultiBUGS(
 
 \arguments{
   \item{test.models}{A character list of models to validate.}
+  \item{n.workers}{The number of workers to use in the MCMC simulation.}
   \item{report}{How to report the result of the validation. If \code{"text"} then
     the outcome is reported to the console. If \code{"appveyor"} the result is
     reported to the \code{appveyor} command line API, and R will be quit after

@@ -3,6 +3,7 @@ validateInstallMultiBUGS <- function(
                     "Dugongs", "Dyes", "Equiv", "Eyes",
                     "Line", "OtreesMVN", "Rats", "Stacks",
                     "Surgical", "Surgicalrand"),
+    n.workers=2,
     report="text",
     MultiBUGS.pgm=NULL,
     useWINE=FALSE, WINE=NULL,
@@ -34,9 +35,7 @@ if(report == "text"){
 } else if (report == "appveyor") {
   report_fun <- function(matched, model, milliseconds){
     outcome <- ifelse(matched, "Passed", "Failed")
-    if (exists("n.workers")){
-      model <- paste0(model, " (", n.workers, " workers)")
-    }
+    model <- paste0(model, " (", n.workers, " workers)")
     system(paste("appveyor AddTest",
                  "-Framework", "R2MultiBUGS",
                  "-Filename", model,
@@ -81,7 +80,8 @@ for (model in test.models) {
     start <- proc.time()
     fit <- round(bugs(data=test.datafile, inits=test.inits,
               parameters.to.save=test.params[[model]],model.file=test.modelfile,
-              n.burnin=5000, n.iter=20000, n.thin=1, n.chains=1, DIC=FALSE,
+              n.burnin=5000, n.iter=20000, n.thin=1,
+              n.workers=n.workers, n.chains=1, DIC=FALSE,
               working.directory=tempdir(),
               MultiBUGS.pgm=MultiBUGS.pgm, ...)$summary, 5)
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
