@@ -106,14 +106,21 @@ for (model in test.models) {
     exfiles <- dir(system.file("validateInstallMultiBUGS", package="R2MultiBUGS"), pattern=test.pattern, full.names=TRUE)
     ok <- file.copy(exfiles, tempdir())
     start <- proc.time()
-    fit <- round(bugs(data=test.datafile, inits=test.inits,
+    fit <- bugs(data=test.datafile, inits=test.inits,
               parameters.to.save=test.params[[model]],model.file=test.modelfile,
               n.burnin=5000, n.iter=20000, n.thin=1,
-              n.workers=n.workers, n.chains=1, DIC=FALSE,
+              n.workers=n.workers, n.chains=1, DIC=FALSE, codaPkg = TRUE,
               working.directory=working.directory,
-              MultiBUGS.pgm=MultiBUGS.pgm, ...)$summary, 5)
+              MultiBUGS.pgm=MultiBUGS.pgm, ...)
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
-    matched <- isTRUE(all.equal(fit, res.true[[model]], tol=1e-2))
+    fit <- summary(read.bugs(fit, quiet = TRUE))
+    
+    mean.fit <- fit[[model]][["statistics"]][, "Mean"]
+    mc.fit <- fit[[model]][["statistics"]][, "Time-series SE"]
+    upper.fit <- mean.fit + 2 * mc.fit
+    lower.fit <- mean.fit - 2 * mc.fit
+    mean.true <- res.true[["statistics"]][,"Mean"]
+    matched <- all(mean.true > lower.fit & mean.true < upper.fit)
     if (!matched){
       any_failed <- TRUE
     }
