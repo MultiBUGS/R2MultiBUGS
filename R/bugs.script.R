@@ -1,7 +1,7 @@
 "bugs.script" <-
   function(parameters.to.save, n.chains, n.iter, n.burnin,
            n.thin, n.workers, saveExec, restart, model.file.bug,
-           model.file, debug=FALSE, is.inits, 
+           model.file, debug=FALSE, is.inits, fix.founders,
            DIC=FALSE, useWINE=FALSE,
            newWINE=TRUE, WINEPATH=NULL, bugs.seed=NULL, summary.only=FALSE,
            save.history=(.Platform$OS.type == "windows" | useWINE==TRUE),
@@ -47,6 +47,12 @@
 
   initlist <- paste("modelInits(", "'", inits, "',",1:n.chains,")\n", sep="")
 
+  if (fix.founders){
+    geninitlist  <- "modelGenInits()\n"
+  } else {
+    geninitlist <- "modelGenInits(\"F\")\n"
+  }
+  
   savelist <- paste("samplesSet(", parameters.to.save, ")\n", sep="")
   summarylist <- paste("summarySet(", parameters.to.save, ")\n", sep="")
 
@@ -73,7 +79,7 @@
     ),
     if(!restart)bugs.seed.cmd,
     if(!restart && is.inits) initlist,
-    if(!restart)"modelGenInits()\n",
+    if(!restart) geninitlist,
     if(!restart)"modelDistribute(", n.workers, ")\n",
     if(!restart && over.relax) 'over.relax("yes")\n',
     if((!restart) || (n.burnin>0))c(

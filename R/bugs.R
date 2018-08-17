@@ -1,5 +1,6 @@
 "bugs" <-
 function(data, inits, parameters.to.save, n.iter, model.file="model.txt",
+         fix.founders = TRUE,
     n.chains=3, n.burnin=floor(n.iter / 2), n.thin=1,
     n.workers = detectCores() - 1,
     saveExec=FALSE,restart=FALSE,
@@ -142,6 +143,7 @@ if(!file.exists(MultiBUGS.pgm))
               n.workers,
               saveExec,restart,model.file.bug,
               new.model.file, debug=debug, is.inits=!is.null(inits),
+              fix.founders = fix.founders,
               DIC=DIC, useWINE=useWINE, newWINE=newWINE,
               WINEPATH=WINEPATH, bugs.seed=bugs.seed, 
               summary.only=summary.only, save.history=save.history, 
