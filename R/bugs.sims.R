@@ -1,3 +1,19 @@
+#' MultiBUGS output reader
+#' 
+#' Reads simulations from \pkg{MultiBUGS} into , formats them, monitors
+#' convergence, performs convergence checks, and computes medians and quantiles
+#' - intended for internal use.
+#' 
+#' 
+#' @param parameters.to.save parameters that should be monitored
+#' @param n.chains number of Markov chains
+#' @param n.iter number of total iterations (including burn in)
+#' @param n.burnin length of burn in
+#' @param n.thin size of thinning parameter
+#' @param DIC calculation of DIC
+#' @return Returns the same values as \code{\link{bugs}}.
+#' @seealso The main function to be called by the user is \code{\link{bugs}}.
+#' @keywords internal IO file
 "bugs.sims" <-
 function (parameters.to.save, n.chains, n.iter, n.burnin, n.thin, DIC=TRUE)
 {

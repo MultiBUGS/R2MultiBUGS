@@ -1,3 +1,21 @@
+#' Adjusting MultiBUGS registry
+#' 
+#' Adjusts MultiBUGS registry - intended for internal use
+#' 
+#' 
+#' Alter the adaptive phases in the \pkg{MultiBUGS} updaters (in the
+#' \file{BUGS/System/Rsrc/Registry.odc} file, where BUGS is map of installed
+#' \pkg{MultiBUGS}) so that all adaptive updating is done during the burnin
+#' stage. Otherwise \pkg{MultiBUGS} will not report results if the burnin is
+#' less than a minimum value such as 500 or 4000 (depending on the model).
+#' Write permission on above mentioned file is needed for this!
+#' 
+#' @param n.burnin length of burn in
+#' @param bugs.directory directory that contains the \pkg{MultiBUGS} executable
+#' @return Nothing, but as a side effect, the registry file
+#' \file{BUGS/System/Rsrc/Registry.odc} is modified
+#' @seealso The main function to be called by the user is \code{\link{bugs}}.
+#' @keywords internal IO file
 "bugs.update.settings" <-
   function (n.burnin, bugs.directory)
 {

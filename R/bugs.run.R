@@ -1,3 +1,22 @@
+#' Calling MultiBUGS
+#' 
+#' Calls \pkg{MultiBUGS} and runs it with \file{script.txt} - intended for
+#' internal use
+#' 
+#' 
+#' @param n.burnin length of burn in
+#' @param MultiBUGS.pgm Full path to the \pkg{MultiBUGS} executable or shell
+#' script
+#' @param debug When debug=T, the MultiBUGS gui is displayed during execution.
+#' there is no effect with linux execution
+#' @param useWINE as in \code{\link{bugs}} meta function
+#' @param WINE as in \code{\link{bugs}} meta function
+#' @param newWINE as in \code{\link{bugs}} meta function
+#' @param WINEPATH as in \code{\link{bugs}} meta function
+#' @return Nothing, but has side effects as documented in
+#' \code{\link{bugs.update.settings}} and calls \pkg{MultiBUGS}.
+#' @seealso The main function to be called by the user is \code{\link{bugs}}.
+#' @keywords internal
 "bugs.run" <-
     function(n.burnin, MultiBUGS.pgm, debug=FALSE,
              useWINE=FALSE, WINE=NULL,

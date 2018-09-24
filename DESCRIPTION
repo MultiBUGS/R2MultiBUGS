@@ -18,3 +18,5 @@ SystemRequirements: MultiBUGS (>= 0.9)
 Maintainer: R.J.B. Goudie <rjbgoudie@gmail.com>
 License: GPL-2
 NeedsCompilation: no
+RoxygenNote: 6.1.0
+Encoding: UTF-8

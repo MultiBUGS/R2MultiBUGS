@@ -1,3 +1,50 @@
+#' Compare MultiBUGS/R2MultiBUGS execution to results supplied with MultiBUGS
+#' 
+#' A selected subset of the examples from the MultiBUGS manual is executed and
+#' compared to results supplied with the package to validate installation.
+#' 
+#' Operation system support: \itemize{ \item \pkg{MS Windows} Yes \item
+#' \pkg{Linux, intel processors} Yes, but GUI display and graphics not
+#' available.  \item \pkg{Mac OS X} and \pkg{Unix} Wine emulation via
+#' \code{useWINE=TRUE} }
+#' 
+#' If \code{useWINE=TRUE} is used, all paths (such as \code{working.directory}
+#' and \code{model.file}, must be given in native (Unix) style, but
+#' \code{MultiBUGS.pgm} can be given in Windows path style (e.g.
+#' \dQuote{c:/Program Files/MultiBUGS/}) or native (Unix) style \cr (e.g.
+#' \dQuote{/path/to/wine/folder/dosdevices/c:/Program
+#' Files/MultiBUGS/MultiBUGS321/MultiBUGS.exe}).
+#' 
+#' @param test.models A character list of models to validate.
+#' @param n.workers The number of workers to use in the MCMC simulation.
+#' @param report How to report the result of the validation. If \code{"text"}
+#' then the outcome is reported to the console. If \code{"appveyor"} the result
+#' is reported to the \code{appveyor} command line API, and R will be quit
+#' after each test model.
+#' @param MultiBUGS.pgm See \code{\link{bugs}}.
+#' @param useWINE logical; attempt to use the Wine emulator to run
+#' \pkg{MultiBUGS}. Default is \code{FALSE}. If WINE is used, the arguments
+#' \code{MultiBUGS.pgm} and \code{working.directory} must be given in form of
+#' Linux paths rather than Windows paths (if not \code{NULL}).
+#' @param WINE Character, path to \file{wine} binary file, it is tried hard (by
+#' a guess and the utilities \code{which} and \code{locate}) to get the
+#' information automatically if not given.
+#' @param newWINE Use new versions of Wine that have \file{winepath} utility
+#' @param WINEPATH Character, path to \file{winepath} binary file, it is tried
+#' hard (by a guess and the utilities \code{which} and \code{locate}) to get
+#' the information automatically if not given.
+#' @param ... Other arguments passed through to \code{bugs}
+#' @return No data returned.  Prints match/no match result to console for each
+#' example.
+#' @author Neal Thomas based on BRugs examples created by Chris Jackaon.
+#' @seealso \code{\link{bugs}}
+#' @references Gelman, A., Carlin, J.B., Stern, H.S., Rubin, D.B. (2003):
+#' \emph{Bayesian Data Analysis}, 2nd edition, CRC Press.
+#' 
+#' Sturtz, S., Ligges, U., Gelman, A. (2005): R2WinBUGS: A Package for Running
+#' WinBUGS from R.  \emph{Journal of Statistical Software} 12(3), 1-16.
+#' @keywords interface models
+#' @export validateInstallMultiBUGS
 validateInstallMultiBUGS <- function(
     test.models = c("Air", "Asia", "Beetles", "BiRats", "Camel",
                     "Dugongs", "Dyes", "Equiv", "Eyes",
