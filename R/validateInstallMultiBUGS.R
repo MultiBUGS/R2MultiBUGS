@@ -94,7 +94,7 @@ test.params <- list(Air = c("X", "theta"),
 res.true <- dget(file = system.file("validateInstallMultiBUGS/validMultiBUGSResults.R", package="R2MultiBUGS") )
 
 message("The version of MultiBUGS on your computer is being compared to validation\n",
-     "results created using MultiBUGS version 3.2.1\n")
+     "results created using MultiBUGS version 1.0\n")
 
 for (model in test.models) {
     test.modelfile <- paste0(model, "model.txt")

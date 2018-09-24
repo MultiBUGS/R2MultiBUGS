@@ -157,7 +157,7 @@ bugs(data, inits, parameters.to.save, n.iter, model.file="model.txt",
 
   BUGS version support:
   \itemize{
-    \item{\pkg{MultiBUGS} }{>=3.2.1}
+    \item{\pkg{MultiBUGS} }{>=1.0}
   }
 
   Operation system support:
