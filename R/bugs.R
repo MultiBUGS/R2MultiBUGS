@@ -1,9 +1,9 @@
 #' Run MultiBUGS from R
-#' 
+#'
 #' The \code{bugs} function takes data and starting values as input.  It
 #' automatically writes a \pkg{MultiBUGS} script, calls the model, and saves
 #' the simulations for easy access in .
-#' 
+#'
 #' To run: \enumerate{ \item Write a \pkg{BUGS} model in an ASCII file (hint:
 #' use \code{\link{write.model}}).  \item Go into .  \item Prepare the inputs
 #' for the \code{bugs} function and run it (see Example section).  \item An
@@ -12,25 +12,25 @@
 #' in the Log window within \pkg{MultiBUGS}. When \pkg{MultiBUGS} is done, its
 #' window will close and will work again.  \item If an error message appears,
 #' re-run with \code{debug=TRUE}.  }
-#' 
+#'
 #' BUGS version support: \itemize{ \item\pkg{MultiBUGS} >=1.0 }
-#' 
+#'
 #' Operation system support: \itemize{ \item\pkg{MS Windows} no problem
 #' \item\pkg{Linux, intel processors} GUI display and graphics not available.
 #' \item\pkg{Mac OS X} and \pkg{Unix} in general possible with Wine emulation
 #' via \code{useWINE=TRUE} }
-#' 
+#'
 #' If \code{useWINE=TRUE} is used, all paths (such as \code{working.directory}
 #' and \code{model.file}, must be given in native (Unix) style, but
 #' \code{MultiBUGS.pgm} can be given in Windows path style (e.g.
 #' \dQuote{c:/Program Files/MultiBUGS/}) or native (Unix) style \cr (e.g.
 #' \dQuote{/path/to/wine/folder/dosdevices/c:/Program
 #' Files/MultiBUGS/MultiBUGS321/MultiBUGS.exe}).
-#' 
+#'
 #' @param data either a named list (names corresponding to variable names in
 #' the \code{model.file}) of the data for the \pkg{MultiBUGS} model, \emph{or}
 #' a vector or list of the names of the data objects used by the model. If
-#' \code{data} is a one element character vector (such as \code{"data.txt"}),
+#' \code{data} is a one element character vector (such as \code{'data.txt'}),
 #' it is assumed that data have already been written to the working directory
 #' into that file, e.g. by the function \code{\link{bugs.data}}.
 #' @param inits a list with \code{n.chains} elements; each element of the list
@@ -111,7 +111,7 @@
 #' default.  If none of the former are set and OS is Windows, the most recent
 #' MultiBUGS version registered in the Windows registry will be used as the
 #' default.  For other operating systems, the location is guessed by
-#' \code{Sys.which("MultiBUGS")}.
+#' \code{Sys.which('MultiBUGS')}.
 #' @param working.directory sets working directory during execution of this
 #' function; \pkg{MultiBUGS}' input and output will be stored in this
 #' directory; if \code{NULL}, a temporary working directory via
@@ -146,7 +146,7 @@
 #' output files written by \pkg{MultiBUGS} containing the Markov Chain Monte
 #' Carlo output in the CODA format.  This is useful for direct access with
 #' \code{\link{read.bugs}}.
-#' 
+#'
 #' If \code{codaPkg=FALSE}, the following values are returned:
 #' \item{n.chains}{see Section \sQuote{Arguments}} \item{n.iter}{see Section
 #' \sQuote{Arguments}} \item{n.burnin}{see Section \sQuote{Arguments}}
@@ -183,27 +183,27 @@
 #' \pkg{coda} and \pkg{BRugs} packages
 #' @references Gelman, A., Carlin, J.B., Stern, H.S., Rubin, D.B. (2003):
 #' \emph{Bayesian Data Analysis}, 2nd edition, CRC Press.
-#' 
+#'
 #' Sturtz, S., Ligges, U., Gelman, A. (2005): R2WinBUGS: A Package for Running
 #' WinBUGS from R.  \emph{Journal of Statistical Software} 12(3), 1-16.
 #' @keywords interface models
 #' @examples
-#' 
-#' 
+#'
+#'
 #' \dontrun{
 #' # An example model file is given in:
-#' model.file <- system.file(package="R2MultiBUGS", "model", "schools.txt")
+#' model.file <- system.file(package='R2MultiBUGS', 'model', 'schools.txt')
 #' # Let's take a look:
 #' #file.show(model.file)
-#' 
+#'
 #' # Some example data (see ?schools for details):
 #' data(schools)
 #' schools
-#' 
+#'
 #' J <- nrow(schools)
 #' y <- schools$estimate
 #' sigma.y <- schools$sd
-#' data <- list ("J", "y", "sigma.y")
+#' data <- list ('J', 'y', 'sigma.y')
 #' inits <- function(){
 #'     list(theta=rnorm(J, 0, 100), mu.theta=rnorm(1, 0, 100),
 #'          sigma.theta=runif(1, 0, 100))
@@ -216,65 +216,89 @@
 #' #        sigma.theta=runif(1, 0, 100))
 #' #   list(theta=rnorm(J, 0, 110), mu.theta=rnorm(1, 0, 110),
 #' #        sigma.theta=runif(1, 0, 110)))
-#' 
-#' parameters <- c("theta", "mu.theta", "sigma.theta")
-#' 
-#' ## You may need to specify "MultiBUGS.pgm"
+#'
+#' parameters <- c('theta', 'mu.theta', 'sigma.theta')
+#'
+#' ## You may need to specify 'MultiBUGS.pgm'
 #' ## also you need write access in the working directory:
 #' schools.sim <- bugs(data, inits, parameters, model.file,
 #'     n.chains=3, n.iter=5000)
 #' print(schools.sim)
 #' plot(schools.sim)
 #' }
-#' 
+#'
 #' @export bugs
-"bugs" <-
-function(data, inits, parameters.to.save, n.iter, model.file="model.txt",
-         fix.founders = TRUE,
-    n.chains=3, n.burnin=floor(n.iter / 2), n.thin=1,
-    n.workers = detectCores() - 1,
-    saveExec=FALSE,restart=FALSE,
-    debug=FALSE, DIC=TRUE, digits=5, codaPkg=FALSE,
-    MultiBUGS.pgm=NULL,
-    working.directory=NULL,
-    clearWD=FALSE, useWINE=FALSE, WINE=NULL,
-    newWINE=TRUE, WINEPATH=NULL, bugs.seed=1, summary.only=FALSE,
-    save.history=(.Platform$OS.type == "windows" | useWINE==TRUE), 
-    over.relax = FALSE)
-{
-
-
-if(is.null(MultiBUGS.pgm)){
+bugs <- function(data,
+                 inits,
+                 parameters.to.save,
+                 n.iter,
+                 model.file = "model.txt",
+                 fix.founders = TRUE,
+                 n.chains = 3,
+                 n.burnin = floor(n.iter/2),
+                 n.thin = 1,
+                 n.workers = detectCores() - 1,
+                 saveExec = FALSE,
+                 restart = FALSE,
+                 debug = FALSE,
+                 DIC = TRUE,
+                 digits = 5,
+                 codaPkg = FALSE,
+                 MultiBUGS.pgm = NULL,
+                 working.directory = NULL,
+                 clearWD = FALSE,
+                 useWINE = FALSE,
+                 WINE = NULL,
+                 newWINE = TRUE,
+                 WINEPATH = NULL,
+                 bugs.seed = 1,
+                 summary.only = FALSE,
+                 save.history = (.Platform$OS.type == "windows" |
+                                   useWINE == TRUE),
+                 over.relax = FALSE){
+  if (is.null(MultiBUGS.pgm)){
     MultiBUGS.pgm <- findMultiBUGS()
-    if(.Platform$OS.type == "windows" || useWINE)
-        MultiBUGS.pgm <- file.path(MultiBUGS.pgm, "MultiBUGS.exe")
-} else if(MultiBUGS.pgm == "MultiBUGS")
+    if (.Platform$OS.type == "windows" || useWINE){
+      MultiBUGS.pgm <- file.path(MultiBUGS.pgm, "MultiBUGS.exe")
+    }
+  } else if (MultiBUGS.pgm == "MultiBUGS"){
     MultiBUGS.pgm <- Sys.which("MultiBUGS")
+  }
+  if (!file.exists(MultiBUGS.pgm)){
+    stop("Cannot find the MultiBUGS program")
+  }
 
-if(!file.exists(MultiBUGS.pgm))
-    stop("Cannot find the MultiBUGS program") 
-
-  ## Is MultiBUGS.pgm defined in Windows (where second character is :
-  ## i.e. C:\Program...) or Unix style path?
-  if(useWINE && (substr(MultiBUGS.pgm, 2, 2) == ":")) {
-    MultiBUGS.pgm <- win2native(MultiBUGS.pgm, newWINE=newWINE, WINEPATH=WINEPATH)
+  ## Is MultiBUGS.pgm defined in Windows (where second character
+  ## is : i.e. C:\Program...) or Unix style path?
+  if (useWINE && (substr(MultiBUGS.pgm, 2, 2) == ":")){
+    MultiBUGS.pgm <- win2native(MultiBUGS.pgm,
+                                newWINE = newWINE,
+                                WINEPATH = WINEPATH)
   }
 
   ### check options for unix/linux
-  if(.Platform$OS.type != "windows" && !useWINE){
-    if(debug)stop("The debug option is not available with linux/unix")
-    if(save.history)("History plots (save.history) are not available with linux/unix")
+  if (.Platform$OS.type != "windows" && !useWINE){
+    if (debug){
+      stop("The debug option is not available with linux/unix")
+    }
+    if (save.history){
+      ("History plots (save.history) are not available with linux/unix")
+    }
   }
 
-  if(! bugs.seed %in% 1:14)
+  if (!bugs.seed %in% 1:14){
     stop("MultiBUGS seed must be integer in 1:14")
+  }
 
-  if(!is.function(model.file) && 
-     length(grep("\\.bug", tolower(model.file))))stop("model.file must be renamed with .txt rather than .bug")
+  if (!is.function(model.file) && length(grep("\\.bug", tolower(model.file)))){
+    stop("model.file must be renamed with .txt rather than .bug")
+  }
 
-  if(is.null(working.directory) && (saveExec || restart))stop("The working directory must be specified when saveExec or restart is TRUE")
+  if (is.null(working.directory) && (saveExec || restart)){
+    stop("The working directory must be specified when saveExec or restart is TRUE")
+  }
 
-  if(!is.null(working.directory)) {
+  if (!is.null(working.directory)){
     working.directory <- path.expand(working.directory)
     savedWD <- getwd()
     setwd(working.directory)
@@ -282,25 +306,33 @@ if(!file.exists(MultiBUGS.pgm))
   }
 
   ## Checking number of inits, which is NOT saved here:
-  if(!missing(inits) && !is.function(inits) && !is.null(inits) && (length(inits) != n.chains))
+  if (!missing(inits) &&
+        !is.function(inits) &&
+         !is.null(inits) &&
+         (length(inits) != n.chains)){
     stop("Number of initialized chains (length(inits)) != n.chains")
+  }
 
   ## Wine
-  if(useWINE) {
+  if (useWINE){
     ## Attempt to find wine and winepath
-    if(is.null(WINE)) WINE <- findUnixBinary(x="wine")
-    if(is.null(WINEPATH)) WINEPATH <- findUnixBinary(x="winepath")
+    if (is.null(WINE)){
+      WINE <- findUnixBinary(x = "wine")
+    }
+    if (is.null(WINEPATH)){
+      WINEPATH <- findUnixBinary(x = "winepath")
+    }
   }
 
   ## Move to working drirectory or temporary directory when NULL
   inTempDir <- FALSE
-  if(is.null(working.directory)) {
+  if (is.null(working.directory)){
     working.directory <- tempdir()
-    if(useWINE){
-        ## Some tweaks for wine (particularly required for Mac OS)
-        working.directory <- gsub("//", "/", working.directory)
-        Sys.chmod(working.directory, mode="770")
-        on.exit(Sys.chmod(working.directory, mode="700"), add = TRUE)
+    if (useWINE){
+      ## Some tweaks for wine (particularly required for Mac OS)
+      working.directory <- gsub("//", "/", working.directory)
+      Sys.chmod(working.directory, mode = "770")
+      on.exit(Sys.chmod(working.directory, mode = "700"), add = TRUE)
     }
     savedWD <- getwd()
     setwd(working.directory)
@@ -309,91 +341,136 @@ if(!file.exists(MultiBUGS.pgm))
   }
 
   ## model.file is not a file name but a model function
-  if(is.function(model.file)){
-      temp <- tempfile("model")
-      temp <- paste(temp, "txt", sep=".")
-      write.model(model.file, con=temp, digits=digits)
-      model.file <- gsub("\\\\", "/", temp)
+  if (is.function(model.file)){
+    temp <- tempfile("model")
+    temp <- paste(temp, "txt", sep = ".")
+    write.model(model.file, con = temp, digits = digits)
+    model.file <- gsub("\\\\", "/", temp)
   }
-  if(inTempDir && basename(model.file) == model.file)
-    try(file.copy(file.path(savedWD, model.file), model.file, overwrite = TRUE))
-  if(!file.exists(model.file))
+  if (inTempDir && basename(model.file) == model.file){
+    try(file.copy(file.path(savedWD, model.file),
+                  model.file,
+                  overwrite = TRUE))
+  }
+  if (!file.exists(model.file)){
     stop(paste(model.file, "does not exist."))
-  if(file.info(model.file)$isdir)
+  }
+  if (file.info(model.file)$isdir){
     stop(paste(model.file, "is a directory, but a file is required."))
-  if (!(length(data) == 1 && is.vector(data) && is.character(data) && 
-       (regexpr("\\.txt$", data) > 0))) {
+  }
+  if (!(length(data) == 1 &&
+          is.vector(data) &&
+          is.character(data) &&
+          (regexpr("\\.txt$", data) > 0))){
     bugs.data.file <- bugs.data(data, dir = getwd(), digits)
   } else {
-    if(inTempDir && all(basename(data) == data))
-        try(file.copy(file.path(savedWD, data), data, overwrite = TRUE))
-    if(!file.exists(data))
-        stop("File", data, "does not exist.")
+    if (inTempDir && all(basename(data) == data)){
+      try(file.copy(file.path(savedWD, data), data, overwrite = TRUE))
+    }
+    if (!file.exists(data)){
+      stop("File", data, "does not exist.")
+    }
     bugs.data.file <- data
   }
 
-  if (is.character(inits)) {
-    if(inTempDir && all(basename(inits) == inits))
-        try(file.copy(file.path(savedWD, inits), inits, overwrite = TRUE))
-    if (!all(file.exists(inits))) {
-        stop("One or more inits files are missing")
+  if (is.character(inits)){
+    if (inTempDir && all(basename(inits) == inits)){
+      try(file.copy(file.path(savedWD, inits), inits, overwrite = TRUE))
     }
-    if (length(inits)!=n.chains) {
-        stop("Need one inits file for each chain")
+    if (!all(file.exists(inits))){
+      stop("One or more inits files are missing")
+    }
+    if (length(inits) != n.chains){
+      stop("Need one inits file for each chain")
     }
     bugs.inits.files <- inits
   } else {
-    if (!is.function(inits) && !is.null(inits) &&  (length(inits) != n.chains)) {
-        stop("Number of initialized chains (length(inits)) != n.chains")
+    if (!is.function(inits) &&
+          !is.null(inits) &&
+           (length(inits) != n.chains)){
+      stop("Number of initialized chains (length(inits)) != n.chains")
     }
     bugs.inits.files <- bugs.inits(inits, n.chains, digits)
   }
 
-  if(DIC) parameters.to.save <- c(parameters.to.save, "deviance")
-  ## Model files must have extension ".txt"
-  if(!length(grep("\\.txt$", tolower(model.file)))) {
-    new.model.file <- paste(basename(model.file), ".txt", sep="")
-    if(!is.null(working.directory)) new.model.file <- file.path(working.directory, new.model.file)
-    file.copy(model.file, new.model.file, overwrite=TRUE)
-    on.exit(try(file.remove(new.model.file)), add=TRUE)
+  if (DIC){
+    parameters.to.save <- c(parameters.to.save, "deviance")
+  }
+  ## Model files must have extension '.txt'
+  if (!length(grep("\\.txt$", tolower(model.file)))){
+    new.model.file <- paste(basename(model.file), ".txt", sep = "")
+    if (!is.null(working.directory)){
+      new.model.file <- file.path(working.directory, new.model.file)
+    }
+    file.copy(model.file, new.model.file, overwrite = TRUE)
+    on.exit(try(file.remove(new.model.file)), add = TRUE)
   } else {
     new.model.file <- model.file
   }
 
   ## Create a filename model.file + .bug
-  model.file.bug<-gsub('\\.txt','.bug',basename(new.model.file))
+  model.file.bug <- gsub("\\.txt", ".bug", basename(new.model.file))
 
-  if(restart && !file.exists(model.file.bug))stop("The .bug restart file was not found in the working directory")
-
-  if(useWINE){
-        ## Some tweaks for wine (particularly required for Mac OS)
-        new.model.file <- gsub("//", "/", new.model.file)
+  if (restart && !file.exists(model.file.bug)){
+    stop("The .bug restart file was not found in the working directory")
   }
-  bugs.script(parameters.to.save, n.chains, n.iter, n.burnin, n.thin,
+
+  if (useWINE){
+    ## Some tweaks for wine (particularly required for Mac OS)
+    new.model.file <- gsub("//", "/", new.model.file)
+  }
+  bugs.script(parameters.to.save,
+              n.chains,
+              n.iter,
+              n.burnin,
+              n.thin,
               n.workers,
-              saveExec,restart,model.file.bug,
-              new.model.file, debug=debug, is.inits=!is.null(inits),
+              saveExec,
+              restart,
+              model.file.bug,
+              new.model.file,
+              debug = debug,
+              is.inits = !is.null(inits),
               fix.founders = fix.founders,
-              DIC=DIC, useWINE=useWINE, newWINE=newWINE,
-              WINEPATH=WINEPATH, bugs.seed=bugs.seed, 
-              summary.only=summary.only, save.history=save.history, 
-              bugs.data.file = bugs.data.file, 
-              bugs.inits.files = bugs.inits.files, over.relax = over.relax)
-  bugs.run(n.burnin, MultiBUGS.pgm, debug=debug, WINE=WINE, useWINE=useWINE,
-           newWINE=newWINE, WINEPATH=WINEPATH)
-  if(codaPkg)
-    return(file.path(getwd(), paste("CODAchain", 1:n.chains, ".txt", sep="")))
-  if (summary.only) {
+              DIC = DIC,
+              useWINE = useWINE,
+              newWINE = newWINE,
+              WINEPATH = WINEPATH,
+              bugs.seed = bugs.seed,
+              summary.only = summary.only,
+              save.history = save.history,
+              bugs.data.file = bugs.data.file,
+              bugs.inits.files = bugs.inits.files,
+              over.relax = over.relax)
+  bugs.run(n.burnin,
+           MultiBUGS.pgm,
+           debug = debug,
+           WINE = WINE,
+           useWINE = useWINE,
+           newWINE = newWINE,
+           WINEPATH = WINEPATH)
+  if (codaPkg){
+    return(file.path(getwd(), paste("CODAchain", 1:n.chains, ".txt", sep = "")))
+  }
+  if (summary.only){
     return(bugs.log("log.txt"))
   }
 
-  sims <- c(bugs.sims(parameters.to.save, n.chains, n.iter, n.burnin,
-                      n.thin, DIC),
-            model.file=model.file)
-  if(clearWD) {
-    file.remove(c(bugs.data.file, "log.odc", "log.txt", "CODAIndex.txt",
-                  bugs.inits.files, "script.txt",
-                  paste("CODAchain", 1:n.chains, ".txt", sep="")))
+  sims <- c(bugs.sims(parameters.to.save,
+                      n.chains,
+                      n.iter,
+                      n.burnin,
+                      n.thin,
+                      DIC),
+            model.file = model.file)
+  if (clearWD){
+    file.remove(c(bugs.data.file,
+                  "log.odc",
+                  "log.txt",
+                  "CODAIndex.txt",
+                  bugs.inits.files,
+                  "script.txt",
+                  paste("CODAchain", 1:n.chains, ".txt", sep = "")))
   }
   class(sims) <- "bugs"
   sims

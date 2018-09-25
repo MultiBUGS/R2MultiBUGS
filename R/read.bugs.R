@@ -1,11 +1,10 @@
 #' Read output files in CODA format
-#' 
+#'
 #' This function reads Markov Chain Monte Carlo output in the CODA format
 #' produced by \pkg{MultiBUGS} and returns an object of class
 #' \code{\link[coda]{mcmc.list}} for further output analysis using the
 #' \pkg{coda} package.
-#' 
-#' 
+#'
 #' @param codafiles character vector of filenames (e.g. returned from
 #' \code{\link{bugs}} in call such as \code{bugs(....., codaPkg=TRUE, .....)}).
 #' Each of the files contains coda output for one chain produced by
@@ -18,7 +17,9 @@
 #' @keywords IO file
 #' @export read.bugs
 read.bugs <- function(codafiles, ...){
-    mcmc.list(lapply(codafiles, read.coda, 
-                     index.file = file.path(dirname(codafiles[1]), "CODAindex.txt"), 
-                     ...))
+  mcmc.list(lapply(codafiles,
+                   read.coda,
+                   index.file = file.path(dirname(codafiles[1]),
+                                          "CODAindex.txt"),
+                   ...))
 }
