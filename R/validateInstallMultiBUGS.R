@@ -3,10 +3,13 @@
 #' A selected subset of the examples from the MultiBUGS manual is executed and
 #' compared to results supplied with the package to validate installation.
 #'
-#' Operation system support: \itemize{ \item \pkg{MS Windows} Yes \item
-#' \pkg{Linux, intel processors} Yes, but GUI display and graphics not
-#' available.  \item \pkg{Mac OS X} and \pkg{Unix} Wine emulation via
-#' \code{useWINE=TRUE} }
+#' Operation system support:
+#' \itemize{
+#' \item \pkg{MS Windows} Yes
+#' \item \pkg{Linux, intel processors} Yes, but GUI display and graphics not
+#'   available.
+#' \item \pkg{Mac OS X} and \pkg{Unix} Wine emulation via \code{useWINE=TRUE}
+#' }
 #'
 #' If \code{useWINE=TRUE} is used, all paths (such as \code{working.directory}
 #' and \code{model.file}, must be given in native (Unix) style, but

@@ -14,17 +14,18 @@
 #' directory, which must be specified.  The .bug files can be large, so users
 #' should monitor them carefully and remove them when not needed.
 #' @param restart If TRUE, execution resumes with the final status from the
-#' previous execution stored in the .bug file in the working directory.  If
-#' \code{n.burnin=0},additional iterations are performed and all iterations
+#' previous execution stored in the .bug file in the working directory.
+#'
+#' If \code{n.burnin=0}, additional iterations are performed and all iterations
 #' since the previous burnin are used (including those from past executions).
 #' If \code{n.burnin>0}, a new burnin is performed, and the previous iterations
 #' are discarded, but execution continues from the status at the end of the
-#' previous execution.  When \code{restart=TRUE}, only \code{n.burnin},
+#' previous execution. When \code{restart=TRUE}, only \code{n.burnin},
 #' \code{n.iter}, and \code{saveExec} inputs should be changed from the call
 #' creating the .bug file, otherwise failed or erratic results may be produced.
 #' @param model.file.bug If saveExec or restart is TRUE, then
 #' \code{model.file.bug} receives/contains the MultiBUGS program image for
-#' restarting the program.  \code{model.file.bug} is the name of the file with
+#' restarting the program. \code{model.file.bug} is the name of the file with
 #' its full path
 #' @param model.file file containing the model written in \pkg{MultiBUGS} code
 #' @param debug if \code{FALSE}, \pkg{MultiBUGS} is closed automatically,

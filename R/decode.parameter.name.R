@@ -5,9 +5,11 @@
 #' function - intended for internal use
 #'
 #' @param a one element of the first column of \file{codaIndex.txt}
-#' @return list with elements: \item{root}{name of parameter, e.g. \code{beta}}
-#' \item{dimension}{number of \code{indexes}, e.g. 2} \item{indexes}{indexes,
-#' e.g. 3 and 14} given \code{a == 'beta[3, 14]'}
+#' @return list with elements:
+#' \item{root}{name of parameter, e.g. \code{beta}}
+#' \item{dimension}{number of \code{indexes}, e.g. 2}
+#' \item{indexes}{indexes, e.g. 3 and 14} given \code{a == 'beta[3, 14]'}
+#'
 #' @seealso The main function to be called by the user is \code{\link{bugs}}.
 #' @keywords internal
 decode.parameter.name <- function(a){

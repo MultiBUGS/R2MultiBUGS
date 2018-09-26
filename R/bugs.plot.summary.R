@@ -7,7 +7,8 @@
 #'
 #' @name bugs.plot
 #' @aliases bugs.plot.summary bugs.plot.inferences
-#' @param sims an object of class `bugs', see \code{\link{bugs}} for details
+#' @param sims an object of class \code{bugs}, see \code{\link{bugs}} for
+#' details
 #' @param display.parallel display parallel intervals in both halves of the
 #' summary plots; this is a convergence-monitoring tool and is not necessary
 #' once you have approximate convergence (default is \code{FALSE})

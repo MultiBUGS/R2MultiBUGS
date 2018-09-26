@@ -4,10 +4,9 @@
 #' from BUGS, to bugs object. Used mainly to display results with
 #' \code{\link{plot.bugs}}.
 #'
-#'
 #' This function takes a 3-way array of simulations and makes it into a
 #' \code{\link{bugs}} object that can be conveniently displayed using
-#' \code{print} and \code{plot} and accessed using \code{attach.bugs}.  If the
+#' \code{print} and \code{plot} and accessed using \code{attach.bugs}. If the
 #' third dimension of sims() has names, the resulting bugs object will respect
 #' that naming convention. For example, if the parameter names are
 #' \dQuote{alpha[1]}, \dQuote{alpha[2]}, ..., \dQuote{alpha[8]}, \dQuote{mu},

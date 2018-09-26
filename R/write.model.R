@@ -4,10 +4,10 @@
 #' BUGS models as functions.
 #'
 #' As a difference, BUGS syntax allows truncation specification like this:
-#' \code{dnorm(...) I(...)} but this is illegal in . To overcome this
-#' incompatibility, use dummy operator \code{\%_\%} before \code{I(...)}:
-#' \code{dnorm(...) \%_\% I(...)}. The dummy operator \code{\%_\%} will be removed
-#' before the BUGS code is saved.
+#' \code{dnorm(...) I(...)} but this is illegal in \R.
+#' To overcome this incompatibility, use dummy operator \code{\%_\%} before
+#' \code{I(...)}: \code{dnorm(...) \%_\% I(...)}. The dummy operator
+#' \code{\%_\%} will be removed before the BUGS code is saved.
 #'
 #' @param model function containing the BUGS model in the BUGS model language,
 #' for minor differences see Section Details.

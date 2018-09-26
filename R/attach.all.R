@@ -6,18 +6,19 @@
 #' While \code{attach.all} attaches all elements of an object \code{x} to a
 #' database called \code{name}, \code{attach.bugs} attaches all elements of
 #' \code{x$sims.list} to the database \code{bugs.sims} itself making use of
-#' \code{attach.all}.\cr
+#' \code{attach.all}.
 #'
 #' \code{detach.all} and \code{detach.bugs} are removing the databases
-#' mentioned above.\cr \code{attach.all} also attaches \code{n.sims} (the
-#' number of simulations saved from the MCMC runs) to the database.\cr\cr
+#' mentioned above.
+#'
+#' \code{attach.all} also attaches \code{n.sims} (the number of simulations
+#' saved from the MCMC runs) to the database.
 #'
 #' Each scalar parameter in the model is attached as vectors of length
 #' \code{n.sims}, each vector is attached as a 2-way array (with first
 #' dimension equal to \code{n.sims}), each matrix is attached as a 3-way array,
 #' and so forth.
 #'
-#' @aliases attach.all detach.all attach.bugs detach.bugs
 #' @param x An object, which must be of class \code{bugs} for
 #' \code{attach.bugs}.
 #' @param overwrite If \code{TRUE}, objects with identical names in the
@@ -29,7 +30,7 @@
 #' @param name The name of the environment where \code{x} will be attached /
 #' which will be detached.
 #' @return \code{attach.all} and \code{attach.bugs} invisibly return the
-#' \code{\link{environment}}(s).\cr
+#' \code{\link{environment}}(s).
 #'
 #' \code{detach.all} and \code{detach.bugs} detach the \code{environment}(s)
 #' named \code{name} created by \code{attach.all}.
@@ -72,6 +73,7 @@
 #' detach.bugs()
 #' }
 #'
+#' @aliases attach.all detach.all attach.bugs detach.bugs
 #' @export attach.all
 attach.all <- function(x, overwrite = NA, name = "attach.all"){
   rem <- names(x) %in% ls(.GlobalEnv)

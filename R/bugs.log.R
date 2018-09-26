@@ -7,14 +7,16 @@
 #' log file.
 #'
 #' @param file Location of the \pkg{MultiBUGS} logfile
-#' @return A list with components: \item{stats}{A matrix containing summary
-#' statistics for each saved parameter. Comparable to the information in the
-#' element \code{summary} of a bugs object as returned by \code{\link{bugs}}.}
+#' @return A list with components:
+#' \describe{
+#' \item{stats}{A matrix containing summary statistics for each saved
+#'   parameter. Comparable to the information in the element \code{summary}
+#'   of a bugs object as returned by \code{\link{bugs}}}.
 #' \item{DIC}{A matrix containing the DIC statistics as returned from
-#' \pkg{MultiBUGS}.}
+#'   \pkg{MultiBUGS}.}
+#' }
 #' @author Jouni Kerman
-#' @seealso The main function that generates the log file is
-#' \code{\link{bugs}}.
+#' @seealso The main function that generates the log file is \code{\link{bugs}}.
 #' @keywords IO file
 #' @export bugs.log
 bugs.log <- function(file){

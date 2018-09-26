@@ -15,17 +15,21 @@
 #' discarded
 #' @param Rupper.keep if \code{FALSE}, don't return \code{Rupper}
 #' @param x for internal use only
-#' @return for \code{monitor}: \item{output}{list of 'mean','sd', quantiles
-#' ('2.5\%','25\%','50\%','75\%','97.5\%'), 'Rhat' if \code{n.chains>1},
-#' 'Rupper' if \code{(Rupper.keep == TRUE) && (n.chains > 1)}, and 'n.eff' if
-#' \code{n.chains > 1}} for \code{conv.par} a list with elements:
-#' \item{quantiles}{emipirical quantiles of simulated sequences}
-#' \item{confshrink}{estimated potential scale reduction (that would be
-#' achieved by continuing simulations forever) has two components: an estimate
-#' and an approx. 97.5\% upper bound} \item{n.eff}{effective sample size:
-#' \code{m*n*min(sigma.hat^2/B,1)}.  This is a crude measure of sample size
-#' because it relies on the between variance, \code{B}, which can only be
-#' estimated with m degrees of freedom.}
+#' @return
+#' for \code{monitor}:
+#'   \item{output}{list of "mean", "sd", quantiles
+#'     ("2.5\%", "25\%", "50\%", "75\%", "97.5\%"), "Rhat" if
+#'     \code{n.chains>1}, "Rupper" if \code{(Rupper.keep == TRUE) &&
+#'     (n.chains > 1)}, and "n.eff" if \code{n.chains > 1}}
+#' for \code{conv.par} a list with elements:
+#'   \item{quantiles}{emipirical quantiles of simulated sequences}
+#'   \item{confshrink}{estimated potential scale reduction (that would be
+#'     achieved by continuing simulations forever) has two components: an
+#'     estimate and an approx. 97.5\% upper bound}
+#'   \item{n.eff}{effective sample size: \code{m*n*min(sigma.hat^2/B, 1)}.
+#'     This is a crude measure of sample size because it relies on the
+#'     between variance, \code{B}, which can only be estimated with m
+#'     degrees of freedom.}
 #' @seealso The main function to be called by the user is \code{\link{bugs}}.
 #' @keywords internal
 #' @export monitor
