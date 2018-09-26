@@ -282,7 +282,7 @@ bugs <- function(data,
       stop("The debug option is not available with linux/unix")
     }
     if (save.history){
-      ("History plots (save.history) are not available with linux/unix")
+      stop("History plots (save.history) are not available with linux/unix")
     }
   }
 
