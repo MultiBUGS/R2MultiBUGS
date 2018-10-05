@@ -200,18 +200,18 @@ bugs.script <- function(parameters.to.save,
       c(thinUpdate, savelist, summarylist)
     },
     if (((!restart) || (n.burnin > 0)) && DIC){
-      c("dicSetS()\n",
-        "modelUpdate(",
-        formatC(n.iter - n.burnin, format = "d"),
-        ",",
-        n.thin,
-        ",",
-        formatC(n.iter - n.burnin, format = "d"),
-        ")\n",
-        "samplesCoda('*', '",
-        coda,
-        "')\n")
+      "dicSetS()\n"
     },
+    "modelUpdate(",
+    formatC(n.iter - n.burnin, format = "d"),
+    ",",
+    n.thin,
+    ",",
+    formatC(n.iter - n.burnin, format = "d"),
+    ")\n",
+    "samplesCoda('*', '",
+    coda,
+    "')\n",
     "summaryStats('*')\n",
     if (DIC){
       "dicStats()\n"
