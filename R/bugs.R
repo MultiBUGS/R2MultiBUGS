@@ -244,7 +244,7 @@
 #' ## You may need to specify 'MultiBUGS.pgm'
 #' ## also you need write access in the working directory:
 #' schools.sim <- bugs(data, inits, parameters, model.file,
-#'     n.chains=3, n.iter=5000)
+#'     n.chains=3, n.workers = 2, n.iter=5000)
 #' print(schools.sim)
 #' plot(schools.sim)
 #' }
