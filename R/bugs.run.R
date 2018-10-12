@@ -41,10 +41,10 @@ bugs.run <- function(n.burnin,
                                  useWINE = useWINE,
                                  newWINE = newWINE,
                                  WINEPATH = WINEPATH),
-                      "\" /",
+                      "\"",
                       sep = "")
     if (!debug){
-      bugsCall <- paste(bugsCall, "HEADLESS", sep = "")
+      bugsCall <- paste(bugsCall, " /HEADLESS", sep = "")
     }
     if (useWINE){
       bugsCall <- paste(WINE, bugsCall)
