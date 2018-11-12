@@ -20,6 +20,6 @@ read.bugs <- function(codafiles, ...){
   mcmc.list(lapply(codafiles,
                    read.coda,
                    index.file = file.path(dirname(codafiles[1]),
-                                          "CODAindex.txt"),
+                                          "R2MultiBUGS_CODAindex.txt"),
                    ...))
 }

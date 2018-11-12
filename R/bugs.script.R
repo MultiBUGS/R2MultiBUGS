@@ -106,7 +106,7 @@ bugs.script <- function(parameters.to.save,
                      newWINE = newWINE,
                      WINEPATH = WINEPATH)
 
-  coda <- file.path(working.directory, "/")
+  coda <- file.path(working.directory, "R2MultiBUGS")
   coda <- native2win(coda,
                      useWINE = useWINE,
                      newWINE = newWINE,
@@ -238,7 +238,7 @@ bugs.script <- function(parameters.to.save,
     cat("modelQuit('y')\n", file = script, append = TRUE)
   }
 
-  sims.files <- paste("CODAchain", 1:n.chains, ".txt", sep = "")
+  sims.files <- paste("R2MultiBUGS_CODAchain", 1:n.chains, ".txt", sep = "")
   for (i in 1:n.chains){
     cat("MultiBUGS did not run correctly.\n",
         file = sims.files[i],

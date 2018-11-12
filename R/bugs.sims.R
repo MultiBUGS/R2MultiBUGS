@@ -21,10 +21,10 @@ bugs.sims <- function(parameters.to.save,
                       DIC = TRUE){
   ## Read the simulations from Bugs into R, format them, and
   ## monitor convergence
-  sims.files <- paste("CODAchain", 1:n.chains, ".txt", sep = "")
+  sims.files <- paste("R2MultiBUGS_CODAchain", 1:n.chains, ".txt", sep = "")
   ## read in the names of the parameters and the indices of
   ## their samples
-  index <- read.table("CODAindex.txt", header = FALSE, sep = "")
+  index <- read.table("R2MultiBUGS_CODAindex.txt", header = FALSE, sep = "")
   parameter.names <- as.vector(index[, 1])
   n.keep <- index[1, 3] - index[1, 2] + 1
   n.parameters <- length(parameter.names)

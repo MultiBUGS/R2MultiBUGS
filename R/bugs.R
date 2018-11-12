@@ -472,7 +472,7 @@ bugs <- function(data,
            newWINE = newWINE,
            WINEPATH = WINEPATH)
   if (codaPkg){
-    return(file.path(getwd(), paste("CODAchain", 1:n.chains, ".txt", sep = "")))
+    return(file.path(getwd(), paste("R2MultiBUGS_CODAchain", 1:n.chains, ".txt", sep = "")))
   }
   if (summary.only){
     return(bugs.log("log.txt"))
@@ -489,10 +489,10 @@ bugs <- function(data,
     file.remove(c(bugs.data.file,
                   "log.odc",
                   "log.txt",
-                  "CODAIndex.txt",
+                  "RMultiBUGS_CODAIndex.txt",
                   bugs.inits.files,
                   "script.txt",
-                  paste("CODAchain", 1:n.chains, ".txt", sep = "")))
+                  paste("R2MultiBUGS_CODAchain", 1:n.chains, ".txt", sep = "")))
   }
   class(sims) <- "bugs"
   sims

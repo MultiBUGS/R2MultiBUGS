@@ -68,7 +68,7 @@ bugs.run <- function(n.burnin,
 
   ## !!!! need to check these conditions Stop and print an error
   ## message if Bugs did not run correctly
-  tmp <- scan("CODAchain1.txt", character(), quiet = TRUE, sep = "\n")
+  tmp <- scan("R2MultiBUGS_CODAchain1.txt", character(), quiet = TRUE, sep = "\n")
   tmp <- tmp[1:min(100, length(tmp))]
   if (length(grep("MultiBUGS did not run correctly", tmp)) > 0){
     logfile <- file.path(getwd(), "log.txt")
