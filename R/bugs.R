@@ -489,7 +489,7 @@ bugs <- function(data,
     file.remove(c(bugs.data.file,
                   "log.odc",
                   "log.txt",
-                  "RMultiBUGS_CODAIndex.txt",
+                  "R2MultiBUGS_CODAIndex.txt",
                   bugs.inits.files,
                   "script.txt",
                   paste("R2MultiBUGS_CODAchain", 1:n.chains, ".txt", sep = "")))
