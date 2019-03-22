@@ -120,13 +120,13 @@ validateInstallMultiBUGS <- function(test.models = c("Air", "Asia", "Beetles",
       model <- paste0(model, " (", n.workers, " workers)")
       log <- readLines(file.path(working.directory, "log.txt"))
       fit <- c("\nResults obtained:\n",
-               capture.output(print(fit)),
+               utils::capture.output(print(fit)),
                "\n",
-               capture.output(dput(fit)))
+               utils::capture.output(dput(fit)))
       true <- c("\nReference results:\n",
-                capture.output(print(true)),
+                utils::capture.output(print(true)),
                 "\n",
-                capture.output(dput(true)))
+                utils::capture.output(dput(true)))
       stdout <- paste(paste(log, collapse = "\n"),
                       paste(fit, collapse = "\n"),
                       paste(true, collapse = "\n"),

@@ -13,10 +13,10 @@ Description: Using this package,
  convergence in a table and graph, and save the simulations in arrays for easy access
  in R.
 Depends: R (>= 2.14.0)
-Imports: coda (>= 0.11-0), boot
+Imports: coda (>= 0.11-0), boot, utils
 SystemRequirements: MultiBUGS (>= 1.0)
 Maintainer: R.J.B. Goudie <rjbgoudie@gmail.com>
 License: GPL-2
 NeedsCompilation: no
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Encoding: UTF-8
