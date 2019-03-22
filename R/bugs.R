@@ -59,6 +59,10 @@
 #' can be an R function that contains a BUGS model that is written to a
 #' temporary model file (see \code{\link{tempfile}}) using
 #' \code{\link{write.model}}.
+#' @param fix.founders If TRUE, If the fix founder box is checked instead of
+#' generating initial values for founder nodes (nodes of topological depth
+#' one in the graphical model) the values of therse nodes is set to the mean
+#' of their prior.
 #' @param n.chains number of Markov chains (default: 3)
 #' @param n.iter number of total iterations per chain (including burn in;
 #' default: 2000)
