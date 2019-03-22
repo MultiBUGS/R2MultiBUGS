@@ -21,6 +21,12 @@ The current development version of R2MultiBUGS can be installed in R using
 devtools::install_github("MultiBUGS/R2MultiBUGS")
 ```
 
+Alternatively, if you have difficulties with `devtools`, you can download the latest auto-built [Windows binary version](https://ci.appveyor.com/api/projects/MultiBUGS/R2MultiBUGS/artifacts/R2MultiBUGS_0.9.zip?job=Environment%3A%20R_VERSION%3Drelease%2C%20R_ARCH%3Dx64) of the package, and install in R using
+
+``` r
+install.packages("R2MultiBUGS_0.9.zip", repos = NULL, type = "win.binary")
+```
+
 ## Usage
 
 The main functions in R2MultiBUGS are the same as R2OpenBUGS, except you specify the number of workers to be used via the `n.workers` argument to `bugs()`
