@@ -1,5 +1,7 @@
 # R2MultiBUGS <a href="https://www.multibugs.org"><img src="https://www.multibugs.org/images/logo.svg" align="right" width = 130></a>
 
+[![Build status](https://ci.appveyor.com/api/projects/status/oqytak2fawdh0yj9?svg=true)](https://ci.appveyor.com/project/MultiBUGS/r2multibugs)
+
 R2MultiBUGS is an R interface to [MultiBUGS](https://www.multibugs.org).
 MultiBUGS is a parallel implementation of the BUGS modelling framework.
 
