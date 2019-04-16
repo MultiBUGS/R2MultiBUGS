@@ -51,10 +51,8 @@ bugs.run <- function(n.burnin,
     }
   } else {
     bugsCall <- paste(MultiBUGS.pgm,
-                      "<",
-                      "script.txt",
-                      ">",
-                      file.path(getwd(), "log.txt"))
+                      "/PAR",
+                      "script.txt")
   }
   if ((.Platform$OS.type == "windows" || useWINE) && debug){
     temp <- system(bugsCall, invisible = FALSE)
