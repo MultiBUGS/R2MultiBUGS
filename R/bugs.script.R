@@ -167,9 +167,7 @@ bugs.script <- function(parameters.to.save,
                       sep = "")
 
   cat(
-    if (.Platform$OS.type == "windows" | useWINE){
-      "modelDisplay('log')\n"
-    },
+    "modelDisplay('log')\n",
     if (restart){
       c("modelInternalize('", model.file.bug, "')\n")
     },
@@ -222,13 +220,11 @@ bugs.script <- function(parameters.to.save,
     if (saveExec){
       c("modelExternalize('", model.file.bug, "')\n")
     },
-    if (.Platform$OS.type == "windows" | useWINE){
-      c("modelSaveLog('",
-        logFile,
-        "')\n", "modelSaveLog('",
-        logFileTxt,
-        "')\n")
-    },
+    c("modelSaveLog('",
+      logFile,
+      "')\n", "modelSaveLog('",
+      logFileTxt,
+      "')\n"),
     file = script,
     sep = "",
     append = FALSE
