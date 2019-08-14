@@ -475,6 +475,9 @@ bugs <- function(data,
            useWINE = useWINE,
            newWINE = newWINE,
            WINEPATH = WINEPATH)
+  if (!is.null(parameters.to.save)){
+    bugs.check.coda()
+  }
   if (codaPkg){
     return(file.path(getwd(), paste("CODAchain", 1:n.chains, ".txt", sep = "")))
   }
