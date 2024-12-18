@@ -64,7 +64,7 @@ bugs.log <- function(file){
 
   stats <- extract(log.txt, "Summary statistics")
   DIC <- extract(log.txt,
-                 "Deviance information",
+                 "Information Criterion",
                  skip = 0,
                  empty.left.col = FALSE)
   list(stats = stats, DIC = DIC)
